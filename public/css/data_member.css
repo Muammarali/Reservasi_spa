@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, Helvetica, sans-serif, sans-serif;
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #cccc;
+
+}
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    color: black;
+    margin-left: 240px;
+    margin-bottom: 100px;
+}
+
+.container .logo{
+    background-image: url('../images/BaliHalus-putih.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 100%;
+    height: 80px;
+    margin-left: 650px;
+}
+
+.container table{
+    border-collapse: collapse;
+    text-align: left;
+    overflow: hidden;
+    box-shadow: 0 5px 10px gray;
+    background-color: white;
+    border-radius: 12px;
+}
+
+.container table thead{
+    box-shadow: 0 5px 15px grey;
+    background-color: #543321;
+    color: white;
+}
+
+.container table thead th{
+    padding: 15px 31px;
+    font-weight: 500;
+    
+}
+
+.container table tr td{
+    padding: 1rem 2rem;
+}
+
+.container table tbody tr td:last-child{
+    text-align: center;
+}
+
+.container table tr:nth-child(even){
+    background-color: rgb(245, 245, 245);
+}
+.title {
+    font-size: 22px;
+    margin-top: 30px;
+    margin-left: 30px;
+    width: 1000px;
+    text-align: center;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #f2f2f2;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.profile{
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    font-size: 28px;
+}
+
+.profile p{
+    display: inline-flex;
+    color: white;
+}

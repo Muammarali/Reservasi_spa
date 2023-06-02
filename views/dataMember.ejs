@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Member</title>
+    <link rel="icon" href="images/logo-web.png">
+    <link rel="stylesheet" href="css/data_member.css">
+    <script src="https://kit.fontawesome.com/985f81e0fc.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="sidebar">
+        <%- include('sidebar') %>
+    </div>
+
+    <div class="profile">
+        <i class="fa-regular fa-circle-user" style="color: #ffffff;"></i>
+        <p><%= nama %></p>
+    </div>
+
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Username</th>
+                    <th>Nomor HP</th>
+                    <th>Alamat</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <% let i = 1 %>
+                <% for(const row of data) { %>
+                    <tr>
+                        <td><%= i %></td>
+                        <td><%= row.nama %></td>
+                        <td><%= row.username %></td>
+                        <td><%= row.no_hp %></td>
+                        <td><%= row.alamat %></td>
+                        <td><a href="/login"><i class="fa-regular fa-pen-to-square" style="color: #000000;"></i></a></td>
+                    </tr>
+                    <% i++ %>
+                <% } %>
+            </tbody>
+            
+        </table>
+    </div>
+</body>
+
+</html>

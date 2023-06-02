@@ -75,6 +75,18 @@ const postDaftar = (conn, nama, username, hashed_pass, no_hp, alamat) => {
     });
 };
 
+const getDataMember = conn => {
+    return new Promise((resolve, reject) => {
+        conn.query(`SELECT * FROM member`, (err, result) => {
+            if(err){
+                reject(err);
+            } else{
+                resolve(result);
+            }
+        });
+    });
+};
+
 app.get('/', async (req, res) => {
     let data = "";
     res.render('login', {data})
@@ -92,14 +104,19 @@ app.get('/daftar', async (req, res) => {
 
 app.get('/homeAdmin', async (req, res) => {
     let nama = req.session.data;
-    console.log(nama);
     res.render('homeAdmin', {nama})
 });
 
 app.get('/homeMember', async (req, res) => {
     let nama = req.session.data;
-    console.log(nama);
     res.render('homeMember', {nama})
+});
+
+app.get('/dataMember', async (req, res) => {
+    const conn = await dbConnect();
+    let nama = req.session.data;
+    let data = await getDataMember(conn);
+    res.render('dataMember', {nama, data})
 });
 
 app.get('/logout', async (req, res) => {
