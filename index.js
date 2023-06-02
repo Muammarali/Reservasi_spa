@@ -107,6 +107,16 @@ app.post('/login', async (req, res) => {
     conn.release();
 });
 
+app.get('/homeAdmin', async (req, res) => {
+    // const conn = await dbConnect();
+    res.render('homeAdmin')
+})
+
+app.get('/homeMember', async (req, res) => {
+    // const conn = await dbConnect();
+    res.render('homeMember')
+})
+
 app.listen(PORT, () => {
     console.log("Ready!")
 });
