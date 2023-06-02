@@ -104,7 +104,7 @@ app.get('/homeMember', async (req, res) => {
 
 app.get('/logout', async (req, res) => {
     let data = "";
-    res.render('login', {data})
+    res.redirect('login')
 });
 
 //POST METHOD
