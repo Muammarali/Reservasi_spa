@@ -13,7 +13,7 @@ body {
     background-size: cover;
     background-color: #cccc;
     background-blend-mode: darken;
-    background-image: url('images/bg-home.jpg');
+    background-image: url('../images/bg-home.jpg');
 }
 
 .container {
@@ -28,7 +28,7 @@ body {
 }
 
 .container .logo{
-    background-image: url('images/BaliHalus-putih.png');
+    background-image: url('../images/BaliHalus-putih.png');
     background-repeat: no-repeat;
     background-size: contain;
     width: 100%;
@@ -51,4 +51,16 @@ body {
     position: fixed;
     left: 0;
     top: 0;
+}
+
+.profile{
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    font-size: 28px;
+}
+
+.profile p{
+    display: inline-flex;
+    color: white;
 }

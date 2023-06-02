@@ -63,6 +63,18 @@ const getCheckMember = (conn, username, hashed_pass) => {
     });
 };
 
+const postDaftar = (conn, nama, username, hashed_pass, no_hp, alamat) => {
+    return new Promise((resolve, reject) => {
+        conn.query(`INSERT INTO member (nama, username, password, no_hp, alamat) VALUES ('${nama}', '${username}', '${hashed_pass}', '${no_hp}', '${alamat}')`, (err, result) => {
+            if(err){
+                reject(err);
+            } else{
+                resolve(result);
+            }
+        });
+    });
+};
+
 app.get('/', async (req, res) => {
     let data = "";
     res.render('login', {data})
@@ -76,6 +88,23 @@ app.get('/login', async (req, res) => {
 app.get('/daftar', async (req, res) => {
     const conn = await dbConnect();
     res.render('daftar')
+});
+
+app.get('/homeAdmin', async (req, res) => {
+    let nama = req.session.data;
+    console.log(nama);
+    res.render('homeAdmin', {nama})
+});
+
+app.get('/homeMember', async (req, res) => {
+    let nama = req.session.data;
+    console.log(nama);
+    res.render('homeMember', {nama})
+});
+
+app.get('/logout', async (req, res) => {
+    let data = "";
+    res.render('login', {data})
 });
 
 //POST METHOD
@@ -93,11 +122,11 @@ app.post('/login', async (req, res) => {
         if (dataAdmin.length > 0){
             req.session.data = dataAdmin[0].nama;
             console.log(req.session.data);
-            res.redirect('/daftar');
+            res.redirect('/homeAdmin');
         } else if (dataMember.length > 0){
             req.session.data = dataMember[0].nama;
             console.log(req.session.data);
-            res.redirect('/daftar');
+            res.redirect('/homeMember');
         } else{
             data = "Data tidak ditemukan!";
             res.render('login', {data});
@@ -107,16 +136,25 @@ app.post('/login', async (req, res) => {
     conn.release();
 });
 
-app.get('/homeAdmin', async (req, res) => {
-    // const conn = await dbConnect();
-    res.render('homeAdmin')
-})
+app.post('/daftar', async (req, res) => {
+    const conn = await dbConnect();
+    const { nama, username, password, retypepassword, nomorhp, alamat } = req.body;
+    const hashed_pass = crypto.createHash('sha256').update(password).digest('base64');
+    let data = "";
+    let status = true;
+    // console.log(hashed_pass);
+    if (password == retypepassword){
+        status = true;
+    } else{
+        status = false;
+    }
 
-app.get('/homeMember', async (req, res) => {
-    // const conn = await dbConnect();
-    res.render('homeMember')
-})
-
+    if (nama != undefined && username != undefined && status == true && nomorhp != undefined && alamat != undefined){
+        const insert = await postDaftar(conn, nama, username, hashed_pass, nomorhp, alamat);
+    }
+    res.render('login', {data})
+    conn.release();
+});
 app.listen(PORT, () => {
     console.log("Ready!")
 });
