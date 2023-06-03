@@ -36,7 +36,7 @@ body {
     overflow: hidden;
     box-shadow: 0 5px 10px gray;
     background-color: white;
-    border-radius: 12px;
+    border-radius:8px;
 }
 
 .container table thead{
@@ -62,6 +62,16 @@ body {
 .container table tr:nth-child(even){
     background-color: rgb(245, 245, 245);
 }
+
+.container table tbody tr td a i{
+    cursor: pointer;
+}
+
+.container table tbody tr td span{
+    float: right;
+    cursor: pointer;
+}
+
 .title {
     font-size: 22px;
     margin-top: 30px;
@@ -89,4 +99,150 @@ body {
 .profile p{
     display: inline-flex;
     color: white;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    background-color: white;
+    padding: 20px;
+    width: 400px;
+    max-width: 90%;
+    display: none;
+    border-radius: 8px;
+}
+
+/* Style untuk tombol close */
+.modal-open {
+    overflow: hidden;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 1050;
+    display: none;
+    overflow: hidden;
+    outline: 0;
+    padding: 20px;
+    width: 400px;
+    border-radius: 8px;
+}
+
+.modal.show .modal-dialog {
+    transform: translate(0, 0);
+}
+
+.modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: black;
+}
+
+.modal-backdrop.fade {
+    opacity: 0;
+}
+
+.modal-backdrop.show {
+    opacity: 0.5;
+}
+
+.edit{
+    text-align: center;
+}
+
+.input-form input {
+    width: 100%;
+    outline: none;
+    border: none;
+}
+
+.modal-open {
+  overflow: hidden; }
+
+.form p{
+    margin: 0;
+    padding: 10px 4px 8px 4px;
+    text-align: left;
+}
+.form .input-form{
+    background: #ededed;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding: 0 0 0 10px;
+}
+
+.form .input-form input{
+    height: 100%;
+    background: none;
+    border: none;
+    outline: none;
+    width: 100%;
+}
+
+.form .input-form i{
+    padding: 2px 10px 2px 2px;
+}
+
+.footer-modal{
+    display: flex;
+    justify-content: space-between;
+}
+
+.form .btn-edit{
+    border: none;
+    margin: 24px 0 0 0;
+    height: 40px;
+    width: 48%;
+    background-color: #543321;  
+    color: #fff;
+    font-size: medium;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.form .btn-edit:hover{
+    background-color: #3b2418;
+}
+
+.form .btn-batal{
+    border: none;
+    margin: 24px 0 0 0;
+    height: 40px;
+    width: 48%;
+    background-color: lightgray;  
+    color: black;
+    font-size: medium;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.form .btn-batal:hover{
+    background-color: rgb(170, 170, 170);
 }

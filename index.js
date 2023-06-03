@@ -87,8 +87,21 @@ const getDataMember = conn => {
     });
 };
 
+// const getDataEdit = (conn, data) => {
+//     return new Promise((resolve, reject) => {
+//         conn.query(`SELECT * FROM member WHERE username = ${data}`, (err, result) => {
+//             if(err){
+//                 reject(err);
+//             } else{
+//                 resolve(result);
+//             }
+//         });
+//     });
+// };
+
 const isAuthMember = (req, res, next) => {
     if (req.session.isAuthMember){
+        req.session.isAuthAdmin = false;
         next()
     } else{
         res.redirect('/')
@@ -97,6 +110,7 @@ const isAuthMember = (req, res, next) => {
 
 const isAuthAdmin = (req, res, next) => {
     if (req.session.isAuthAdmin){
+        req.session.isAuthMember = false;
         next()
     } else{
         res.redirect('/')
@@ -112,10 +126,8 @@ app.get('/', async (req, res) => {
 
 app.get('/login', async (req, res) => {
     let data = "";
-    
     req.session.isAuthAdmin = false;
     req.session.isAuthMember = false;
-
     res.render('login', {data})
 });
 
@@ -125,23 +137,29 @@ app.get('/daftar', async (req, res) => {
 
 app.get('/homeAdmin', isAuthAdmin, async (req, res) => {
     let nama = req.session.data;
-    req.session.isAuthMember = false;
     console.log("Auth Admin : " + req.session.isAuthAdmin)
     res.render('homeAdmin', {nama})
 });
 
 app.get('/homeMember', isAuthMember, async (req, res) => {
     let nama = req.session.data
-    req.session.isAuthAdmin = false
     console.log("Auth Member : " + req.session.isAuthMember)
     res.render('homeMember', {nama})
 });
 
-app.get('/dataMember', async (req, res) => {
+app.get('/dataMember', isAuthAdmin, async (req, res) => {
     const conn = await dbConnect();
     let nama = req.session.data;
     let data = await getDataMember(conn);
     res.render('dataMember', {nama, data})
+});
+
+app.get('/edit/:username', async (req, res) => {
+    const conn = await dbConnect();
+    const {username} = req.params
+    conn.query(`SELECT * FROM member WHERE username = ${username}`, (err, res) => {
+        res.render('dataMember')
+    });
 });
 
 app.get('/logout', async (req, res) => {
@@ -201,6 +219,7 @@ app.post('/daftar', async (req, res) => {
     res.render('login', {data})
     conn.release();
 });
+
 app.listen(PORT, () => {
     console.log("Ready!")
 });
