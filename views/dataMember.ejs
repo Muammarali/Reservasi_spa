@@ -21,7 +21,7 @@
 
     <div class="profile">
         <i class="fa-regular fa-circle-user" style="color: #ffffff;"></i>
-        <p><%= nama %></p>
+        <p><%= dataSession %></p>
     </div>
 
     <div class="container">
@@ -39,7 +39,7 @@
             
             <tbody>
                 <% let i = 1 %>
-                <% for(let row of data) { %>
+                <% for(let row of dataMember) { %>
                     <tr>
                         <td><%= i %></td>
                         <td><%= row.nama %></td>
@@ -49,7 +49,7 @@
                         <td>
                             
                             <a class="btn btn-dark" data-toggle="modal" data-target="#tambahModel<%= row.username %>"><i class="fa-regular fa-pen-to-square fa-lg" style="color: #000000;"></i></a>
-                            <div class="modal fade" id="tambahModel<%= row.username %>" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal fade" id="tambahModel<%= row.username %>" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <!-- <span class ="modal-close" data-dismiss="modal"><i class="fa-solid fa-xmark" style="color: #000000;"></i></span> -->
