@@ -228,7 +228,7 @@ app.post('/daftar', async (req, res) => {
     if (nama != undefined && username != undefined && status == true && nomorhp != undefined && alamat != undefined){
         const insert = await postDaftar(conn, nama, username, hashed_pass, nomorhp, alamat);
     }
-    res.render('login', {dataSession})
+    res.render('login',{data})
     conn.release();
 });
 
