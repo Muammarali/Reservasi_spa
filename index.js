@@ -23,7 +23,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(session({
     secret: 'mysecretkey',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {secure: false}
 }));
 
@@ -87,28 +87,53 @@ const getDataMember = conn => {
     });
 };
 
+const isAuthMember = (req, res, next) => {
+    if (req.session.isAuthMember){
+        next()
+    } else{
+        res.redirect('/')
+    }
+}
+
+const isAuthAdmin = (req, res, next) => {
+    if (req.session.isAuthAdmin){
+        next()
+    } else{
+        res.redirect('/')
+    }
+}
+
 app.get('/', async (req, res) => {
     let data = "";
+    req.session.isAuthAdmin = false;
+    req.session.isAuthMember = false;
     res.render('login', {data})
 });
 
 app.get('/login', async (req, res) => {
     let data = "";
+    
+    req.session.isAuthAdmin = false;
+    req.session.isAuthMember = false;
+
     res.render('login', {data})
 });
 
 app.get('/daftar', async (req, res) => {
-    const conn = await dbConnect();
     res.render('daftar')
 });
 
-app.get('/homeAdmin', async (req, res) => {
+app.get('/homeAdmin', isAuthAdmin, async (req, res) => {
     let nama = req.session.data;
+    req.session.isAuthMember = false;
+    console.log("Auth Admin : " + req.session.isAuthAdmin)
     res.render('homeAdmin', {nama})
 });
 
-app.get('/homeMember', async (req, res) => {
-    let nama = req.session.data;
+app.get('/homeMember', isAuthMember, async (req, res) => {
+    let nama = req.session.data
+    req.session.isAuthAdmin = false
+    console.log("Auth Member : " + req.session.isAuthMember)
     res.render('homeMember', {nama})
 });
 
@@ -121,6 +146,8 @@ app.get('/dataMember', async (req, res) => {
 
 app.get('/logout', async (req, res) => {
     let data = "";
+    req.session.isAuthAdmin = false;
+    req.session.isAuthMember = false;
     res.redirect('login')
 });
 
@@ -135,14 +162,16 @@ app.post('/login', async (req, res) => {
     if (username.length > 0 && password.length > 0){
         const dataAdmin = await getCheckAdmin(conn, username, hashed_pass);
         const dataMember = await getCheckMember(conn, username, hashed_pass);
-        
+
         if (dataAdmin.length > 0){
             req.session.data = dataAdmin[0].nama;
-            console.log(req.session.data);
+            req.session.isAuthAdmin = true;
+            // console.log(req.session.data);
             res.redirect('/homeAdmin');
         } else if (dataMember.length > 0){
             req.session.data = dataMember[0].nama;
-            console.log(req.session.data);
+            req.session.isAuthMember = true;
+            // console.log(req.session.data);
             res.redirect('/homeMember');
         } else{
             data = "Data tidak ditemukan!";
