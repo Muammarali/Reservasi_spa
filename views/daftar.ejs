@@ -7,6 +7,7 @@
     <title>Daftar</title>
     <link rel="icon" href="images/logo-web.png">
     <link rel="stylesheet" href="css/login_page.css">
+    <script src="js/daftar.js" defer></script>
     <script src="https://kit.fontawesome.com/985f81e0fc.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -33,12 +34,22 @@
                 <div class="input-form">
                     <i class="fa-solid fa-key" style="color: #000000;"></i>
                     <input type="password" name="password" placeholder="Masukkan password" required>
+                    <p class="isValid">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </p>
                 </div>
 
                 <p>Konfirmasi Password</p>
                 <div class="input-form">
                     <i class="fa-solid fa-key" style="color: #000000;"></i>
                     <input type="password" name="retypepassword" placeholder="Masukkan password kembali" required>
+                    <p class="isRetypeValid">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </p>
+                    <p class="isRetypeNotValid">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </p>
+                    
                 </div>
 
                 <p>Nomor HP</p>
@@ -51,6 +62,10 @@
                 <div class="input-form">
                     <i class="fa-solid fa-address-card" style="color: #000000;"></i>
                     <input type="text" name="alamat" placeholder="Masukkan alamat" required>
+                </div>
+
+                <div class="alert">
+                    <p><%= isExist %></p>
                 </div>
 
                 <button>Daftar</button>

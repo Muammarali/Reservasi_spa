@@ -103,3 +103,18 @@ body{
 .form .login-signup a{
     text-decoration: none;
 }
+
+form .input-form .isValid{
+    color: #543321;
+    display: none;
+}
+
+form .input-form .isRetypeValid{
+    color: #543321;
+    display: none;
+}
+
+form .input-form .isRetypeNotValid{
+    color: #543321;
+    display: none;
+}

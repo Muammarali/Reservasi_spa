@@ -99,6 +99,18 @@ const getDataEdit = (conn, username) => {
     });
 };
 
+const checkDataMember = (conn, username) => {
+    return new Promise((resolve, reject) => {
+        conn.query(`SELECT username FROM member WHERE username = '${username}'`, (err, result) => {
+            if(err){
+                reject(err);
+            } else{
+                resolve(result);
+            }
+        });
+    });
+};
+
 const updateDataMember = (conn, data, nama, username, no_hp, alamat) => {
     return new Promise((resolve, reject) => {
         conn.query(`UPDATE member SET nama = '${nama}', username = '${username}', no_hp = '${no_hp}', alamat = '${alamat}' WHERE username = '${data}'`, (err, result) => {
@@ -144,7 +156,8 @@ app.get('/login', async (req, res) => {
 });
 
 app.get('/daftar', async (req, res) => {
-    res.render('daftar')
+    let isExist = ""
+    res.render('daftar', {isExist})
 });
 
 app.get('/homeAdmin', isAuthAdmin, async (req, res) => {
@@ -216,7 +229,9 @@ app.post('/daftar', async (req, res) => {
     const conn = await dbConnect();
     const { nama, username, password, retypepassword, nomorhp, alamat } = req.body;
     const hashed_pass = crypto.createHash('sha256').update(password).digest('base64');
+    let checkDataExist = await checkDataMember(conn, username);
     let data = "";
+    let isExist = "";
     let status = true;
     // console.log(hashed_pass);
     if (password == retypepassword){
@@ -226,9 +241,20 @@ app.post('/daftar', async (req, res) => {
     }
 
     if (nama != undefined && username != undefined && status == true && nomorhp != undefined && alamat != undefined){
-        const insert = await postDaftar(conn, nama, username, hashed_pass, nomorhp, alamat);
+        console.log(checkDataExist.length)
+        if (checkDataExist.length == 0){
+            console.log("Ter INSERT data nya")
+            const insert = await postDaftar(conn, nama, username, hashed_pass, nomorhp, alamat);
+            res.render('login', {data})
+        } else{
+            isExist = "Username sudah digunakan, silakan ganti!"
+            res.render('daftar', {isExist})
+        }
+    } else{
+        isExist = "Data yang Anda masukkan tidak valid!"
+        res.render('daftar', {isExist})
     }
-    res.render('login',{data})
+    
     conn.release();
 });
 
