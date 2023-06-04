@@ -123,6 +123,30 @@ const updateDataMember = (conn, data, nama, username, no_hp, alamat) => {
     });
 };
 
+const getDataBodyM = conn => {
+    return new Promise((resolve, reject) => {
+        conn.query(`SELECT id_layanan, oil FROM layanan`, (err, result) => {
+            if(err){
+                reject(err);
+            } else{
+                resolve(result);
+            }
+        });
+    });
+};
+
+const updateDataBodyM= (conn, data, oil) => {
+    return new Promise((resolve, reject) => {
+        conn.query(`UPDATE layanan SET oil = '${oil}' WHERE id_layanan = '${data}'`, (err, result) => {
+            if(err){
+                reject(err);
+            } else{
+                resolve(result);
+            }
+        });
+    });
+};
+
 const isAuthMember = (req, res, next) => {
     if (req.session.isAuthMember){
         req.session.isAuthAdmin = false;
@@ -179,13 +203,13 @@ app.get('/dataMember', isAuthAdmin, async (req, res) => {
     res.render('dataMember', {dataSession, dataMember})
 });
 
-app.get('/edit/:data', async (req, res) => {
+app.get('/bodyMassage', isAuthAdmin, async (req, res) => {
     const conn = await dbConnect();
-    let dataSession = req.session.data
-    let dataMember = await getDataMember(conn);
-    res.render('dataMember', {dataSession, dataMember})
-
+    let dataSession = req.session.data;
+    let dataBodyM = await getDataBodyM(conn);
+    res.render('bodyMassage', {dataSession, dataBodyM})
 });
+
 
 app.get('/logout', async (req, res) => {
     let data = "";
@@ -276,6 +300,20 @@ app.post('/edit/:data', async (req, res) => {
 
     conn.release();
     res.redirect('/dataMember')
+});
+
+app.post('/editOil/:data', async (req, res) => {
+    const conn = await dbConnect();
+    const {data} = req.params
+    const {oil} = req.body
+
+    // let dataSession = req.session.data
+    // let dataBodyM = await getDataMember(conn);
+    // const dataEdit = await getDataEdit(conn, data)
+    const updateData = await updateDataBodyM(conn, data, oil)
+
+    conn.release();
+    res.redirect('/bodyMassage')
 });
 
 app.listen(PORT, () => {
