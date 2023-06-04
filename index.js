@@ -65,7 +65,7 @@ const getCheckMember = (conn, username, hashed_pass) => {
 
 const postDaftar = (conn, nama, username, hashed_pass, no_hp, alamat) => {
     return new Promise((resolve, reject) => {
-        conn.query(`INSERT INTO member (nama, username, password, no_hp, alamat) VALUES ('${nama}', '${username}', '${hashed_pass}', '${no_hp}', '${alamat}')`, (err, result) => {
+        conn.query(`INSERT INTO member (nama, username, password, no_hp, alamat, status) VALUES ('${nama}', '${username}', '${hashed_pass}', '${no_hp}', '${alamat}', '0')`, (err, result) => {
             if(err){
                 reject(err);
             } else{
@@ -77,7 +77,19 @@ const postDaftar = (conn, nama, username, hashed_pass, no_hp, alamat) => {
 
 const getDataMember = conn => {
     return new Promise((resolve, reject) => {
-        conn.query(`SELECT * FROM member`, (err, result) => {
+        conn.query(`SELECT * FROM member WHERE status = 1`, (err, result) => {
+            if(err){
+                reject(err);
+            } else{
+                resolve(result);
+            }
+        });
+    });
+};
+
+const getDataMemberBaru = conn => {
+    return new Promise((resolve, reject) => {
+        conn.query(`SELECT * FROM member WHERE status = 0`, (err, result) => {
             if(err){
                 reject(err);
             } else{
@@ -114,6 +126,30 @@ const checkDataMember = (conn, username) => {
 const updateDataMember = (conn, data, nama, username, no_hp, alamat) => {
     return new Promise((resolve, reject) => {
         conn.query(`UPDATE member SET nama = '${nama}', username = '${username}', no_hp = '${no_hp}', alamat = '${alamat}' WHERE username = '${data}'`, (err, result) => {
+            if(err){
+                reject(err);
+            } else{
+                resolve(result);
+            }
+        });
+    });
+};
+
+const updateStatusMember = (conn, data) => {
+    return new Promise((resolve, reject) => {
+        conn.query(`UPDATE member SET status = '1' WHERE username = '${data}'`, (err, result) => {
+            if(err){
+                reject(err);
+            } else{
+                resolve(result);
+            }
+        });
+    });
+};
+
+const tolakMember = (conn, data) => {
+    return new Promise((resolve, reject) => {
+        conn.query(`DELETE FROM member WHERE username = '${data}'`, (err, result) => {
             if(err){
                 reject(err);
             } else{
@@ -203,6 +239,13 @@ app.get('/dataMember', isAuthAdmin, async (req, res) => {
     res.render('dataMember', {dataSession, dataMember})
 });
 
+app.get('/memberBaru', isAuthAdmin, async (req, res) => {
+    const conn = await dbConnect();
+    let dataSession = req.session.data;
+    let dataMember = await getDataMemberBaru(conn);
+    res.render('memberBaru', {dataSession, dataMember})
+});
+
 app.get('/bodyMassage', isAuthAdmin, async (req, res) => {
     const conn = await dbConnect();
     let dataSession = req.session.data;
@@ -210,12 +253,17 @@ app.get('/bodyMassage', isAuthAdmin, async (req, res) => {
     res.render('bodyMassage', {dataSession, dataBodyM})
 });
 
-
 app.get('/logout', async (req, res) => {
     let data = "";
     req.session.isAuthAdmin = false;
     req.session.isAuthMember = false;
     res.redirect('login')
+});
+
+app.get('/kelolaCabang', async (req, res) => {
+    const conn = await dbConnect();
+    let dataSession = req.session.data;
+    res.render('kelolaCabang', {dataSession})
 });
 
 //POST METHOD
@@ -225,7 +273,7 @@ app.post('/login', async (req, res) => {
     const { username, password } = req.body;
     const hashed_pass = crypto.createHash('sha256').update(password).digest('base64');
     let data = "";
-    console.log(hashed_pass);
+    // console.log(hashed_pass);
     if (username.length > 0 && password.length > 0){
         const dataAdmin = await getCheckAdmin(conn, username, hashed_pass);
         const dataMember = await getCheckMember(conn, username, hashed_pass);
@@ -237,9 +285,16 @@ app.post('/login', async (req, res) => {
             res.redirect('/homeAdmin');
         } else if (dataMember.length > 0){
             req.session.data = dataMember[0].nama;
-            req.session.isAuthMember = true;
+            console.log(dataMember[0].status)
+            
             // console.log(req.session.data);
-            res.redirect('/homeMember');
+            if (dataMember[0].status == 1){
+                req.session.isAuthMember = true;
+                res.redirect('/homeMember');
+            } else{
+                data = "Maaf, akun Anda belum diterima oleh Admin!";
+                res.render('login', {data});
+            }
         } else{
             data = "Username atau Password salah!";
             res.render('login', {data});
@@ -265,7 +320,7 @@ app.post('/daftar', async (req, res) => {
     }
 
     if (nama != undefined && username != undefined && status == true && nomorhp != undefined && alamat != undefined){
-        console.log(checkDataExist.length)
+        // console.log(checkDataExist.length)
         if (checkDataExist.length == 0){
             console.log("Ter INSERT data nya")
             const insert = await postDaftar(conn, nama, username, hashed_pass, nomorhp, alamat);
@@ -300,6 +355,22 @@ app.post('/edit/:data', async (req, res) => {
 
     conn.release();
     res.redirect('/dataMember')
+});
+
+app.post('/tambah/:data', async (req, res) => {
+    const conn = await dbConnect();
+    const {data} = req.params
+    const updateData = await updateStatusMember(conn, data)
+    conn.release();
+    res.redirect('/memberBaru')
+});
+
+app.post('/tolak/:data', async (req, res) => {
+    const conn = await dbConnect();
+    const {data} = req.params
+    const updateData = await tolakMember(conn, data)
+    conn.release();
+    res.redirect('/memberBaru')
 });
 
 app.post('/editOil/:data', async (req, res) => {
