@@ -18,7 +18,7 @@ body{
     background-color: #cccc;
     background-blend-mode: darken;
     background-image: url('../images/background-login.jpg');
-    
+    overflow-y: scroll;
 }
 
 .container{
@@ -84,15 +84,14 @@ body{
     width: 100%;
     background-color: #543321;  
     color: #fff;
-    font-size: 18px;
-    font-weight: 500;
+    font-size: medium;
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
-.form button input:hover{
-    background-color: #997059;
+.form button:hover{
+    background-color: #3f2719;
 }
 
 .form .login-signup{
@@ -117,4 +116,8 @@ form .input-form .isRetypeValid{
 form .input-form .isRetypeNotValid{
     color: #543321;
     display: none;
+}
+
+form .input-form .showPassword{
+    cursor: pointer;
 }

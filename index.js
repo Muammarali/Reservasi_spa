@@ -217,7 +217,7 @@ app.post('/login', async (req, res) => {
             // console.log(req.session.data);
             res.redirect('/homeMember');
         } else{
-            data = "Data tidak ditemukan!";
+            data = "Username atau Password salah!";
             res.render('login', {data});
         }
         
