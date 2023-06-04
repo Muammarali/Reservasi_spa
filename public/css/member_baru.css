@@ -1,0 +1,219 @@
+body {
+    font-family: Arial, Helvetica, sans-serif, sans-serif;
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #cccc;
+
+}
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    color: black;
+    margin-left: 222px;
+    margin-bottom: 100px;
+}
+
+.container .logo{
+    background-image: url('../images/BaliHalus-putih.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 100%;
+    height: 80px;
+    margin-left: 650px;
+}
+
+.container table{
+    border-collapse: collapse;
+    text-align: left;
+    overflow: hidden;
+    box-shadow: 0 5px 10px gray;
+    background-color: white;
+    border-radius:8px;
+    max-width: 1080px;
+    min-width: 20%;
+    min-height: 99px;
+}
+
+.container table thead{
+    box-shadow: 0 5px 15px grey;
+    background-color: #543321;
+    color: white;
+}
+
+.container table thead th{
+    padding: 15px 31px;
+    font-weight: 500;
+    
+}
+
+.container table tr td{
+    padding: 1rem 2rem;
+}
+
+.container table tbody tr td:last-child{
+    text-align: center;
+}
+
+.container table tr:nth-child(even){
+    background-color: rgb(245, 245, 245);
+}
+
+.container table tbody tr td a i{
+    cursor: pointer;
+}
+
+.container table tbody tr td span{
+    float: right;
+    cursor: pointer;
+}
+
+.title {
+    font-size: 22px;
+    margin-top: 30px;
+    margin-left: 30px;
+    width: 1000px;
+    text-align: center;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #f2f2f2;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    background-color: white;
+    outline: 0;
+    padding: 20px;
+    overflow: hidden;
+    width: auto;
+    min-width: 600px;
+    max-width: 90%;
+    display: none;
+    border-radius: 8px;
+    z-index: 1050;
+}
+
+/* Style untuk tombol close */
+.modal-open {
+    overflow: hidden;
+}
+
+.modal.show .modal-dialog {
+    transform: translate(0, 0);
+}
+
+.modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: black;
+}
+
+.modal-backdrop.fade {
+    opacity: 0;
+}
+
+.modal-backdrop.show {
+    opacity: 0.5;
+}
+
+.edit{
+    text-align: center;
+    font-size: large;
+}
+
+.modal-open {
+  overflow: hidden; 
+}
+
+.data-box{
+    width: auto;
+    height: auto;
+    padding: 28px;
+    border-radius: 12px;
+    background: lightgray;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+.form p{
+    margin: 0;
+    padding: 10px 4px 8px 4px;
+    text-align: left;
+}
+.form .data-form{
+    display: flex;
+    white-space: nowrap;
+}
+
+.footer-modal{
+    display: flex;
+    justify-content: space-between;
+}
+
+.form .btn-edit{
+    border: none;
+    margin: 24px 0 0 0;
+    height: 40px;
+    width: 48%;
+    background-color: #543321;  
+    color: #fff;
+    font-size: medium;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.form .btn-edit:hover{
+    background-color: #3b2418;
+}
+
+.form .btn-batal{
+    border: none;
+    margin: 24px 0 0 0;
+    height: 40px;
+    width: 48%;
+    background-color: lightgray;  
+    color: black;
+    font-size: medium;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.form .btn-batal:hover{
+    background-color: rgb(170, 170, 170);
+}
