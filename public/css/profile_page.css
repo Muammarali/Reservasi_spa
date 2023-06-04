@@ -1,0 +1,17 @@
+.profile {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    display: flex;
+    align-items: center;
+    font-size: 28px;
+  }
+  
+  .profile i {
+    margin-right: 10px;
+  }
+  
+  .profile p {
+    color: white;
+    margin-bottom: 28px;
+  }

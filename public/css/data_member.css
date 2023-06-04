@@ -6,7 +6,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: auto;
+    overflow: hidden;
     background-color: #cccc;
 
 }
@@ -89,18 +89,6 @@ body {
     position: fixed;
     left: 0;
     top: 0;
-}
-
-.profile{
-    position: absolute;
-    top: 40px;
-    right: 40px;
-    font-size: 28px;
-}
-
-.profile p{
-    display: inline-flex;
-    color: white;
 }
 
 .modal-overlay {
