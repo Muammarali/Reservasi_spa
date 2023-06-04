@@ -91,18 +91,6 @@ body {
     top: 0;
 }
 
-.profile{
-    position: absolute;
-    top: 40px;
-    right: 40px;
-    font-size: 28px;
-}
-
-.profile p{
-    display: inline-flex;
-    color: white;
-}
-
 .modal-overlay {
     position: fixed;
     top: 0;

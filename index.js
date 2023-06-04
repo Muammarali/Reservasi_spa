@@ -201,7 +201,7 @@ app.post('/login', async (req, res) => {
     const { username, password } = req.body;
     const hashed_pass = crypto.createHash('sha256').update(password).digest('base64');
     let data = "";
-    // console.log(hashed_pass);
+    console.log(hashed_pass);
     if (username.length > 0 && password.length > 0){
         const dataAdmin = await getCheckAdmin(conn, username, hashed_pass);
         const dataMember = await getCheckMember(conn, username, hashed_pass);
