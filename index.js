@@ -86,6 +86,7 @@ const getDataMember = conn => {
         });
     });
 };
+
 const getDataMemberBaru = conn => {
     return new Promise((resolve, reject) => {
         conn.query(`SELECT * FROM member WHERE status = 0`, (err, result) => {
@@ -243,6 +244,12 @@ app.get('/logout', async (req, res) => {
     req.session.isAuthAdmin = false;
     req.session.isAuthMember = false;
     res.redirect('login')
+});
+
+app.get('/kelolaCabang', async (req, res) => {
+    const conn = await dbConnect();
+    let dataSession = req.session.data;
+    res.render('kelolaCabang', {dataSession})
 });
 
 //POST METHOD
