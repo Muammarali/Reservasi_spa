@@ -161,7 +161,7 @@ const tolakMember = (conn, data) => {
 
 const getDataBodyM = conn => {
     return new Promise((resolve, reject) => {
-        conn.query(`SELECT id_layanan, oil FROM layanan`, (err, result) => {
+        conn.query(`SELECT id_layanan, oil FROM layanan WHERE oil IS NOT NULL`, (err, result) => {
             if(err){
                 reject(err);
             } else{
@@ -183,23 +183,59 @@ const updateDataBodyM= (conn, data, oil) => {
     });
 };
 
+const getDataCabang = (conn) => {
+    return new Promise((resolve, reject) => {
+        conn.query(`SELECT * FROM cabang JOIN kota ON kota.id_kota = cabang.id_kota`, (err, result) => {
+            if(err){
+                reject(err);
+            } else{
+                resolve(result);
+            }
+        });
+    });
+};
+
+const getDataCabangEdit = (conn, data) => {
+    return new Promise((resolve, reject) => {
+        conn.query(`UPDATE layanan SET oil = '${oil}' WHERE id_layanan = '${data}'`, (err, result) => {
+            if(err){
+                reject(err);
+            } else{
+                resolve(result);
+            }
+        });
+    });
+};
+
+const getDataKota = (conn) => {
+    return new Promise((resolve, reject) => {
+        conn.query(`SELECT nama_kota FROM kota`, (err, result) => {
+            if(err){
+                reject(err);
+            } else{
+                resolve(result);
+            }
+        });
+    });
+};
+
 const isAuthMember = (req, res, next) => {
     if (req.session.isAuthMember){
-        req.session.isAuthAdmin = false;
+        // req.session.isAuthAdmin = false;
         next()
     } else{
         res.redirect('/')
     }
-}
+};
 
 const isAuthAdmin = (req, res, next) => {
     if (req.session.isAuthAdmin){
-        req.session.isAuthMember = false;
+        // req.session.isAuthMember = false;
         next()
     } else{
         res.redirect('/')
     }
-}
+};
 
 app.get('/', async (req, res) => {
     let data = "";
@@ -260,10 +296,15 @@ app.get('/logout', async (req, res) => {
     res.redirect('login')
 });
 
-app.get('/kelolaCabang', async (req, res) => {
+app.get('/kelolaCabang', isAuthAdmin, async (req, res) => {
     const conn = await dbConnect();
+    let { selected } = req.body;
+    console.log(selected)
     let dataSession = req.session.data;
-    res.render('kelolaCabang', {dataSession})
+    const dataCabang = await getDataCabang(conn);
+    const dataKota = await getDataKota(conn);
+    conn.release();
+    res.render('kelolaCabang', {dataSession, dataCabang, dataKota})
 });
 
 //POST METHOD
