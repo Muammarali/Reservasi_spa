@@ -20,10 +20,13 @@ const staticPath = path.resolve('public');
 app.use(express.static(staticPath));
 app.use(express.urlencoded({extended: true}));
 
+// Item per Page
+const resultPerPage = 10;
+
 app.use(session({
     secret: 'mysecretkey',
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     cookie: {secure: false}
 }));
 
@@ -75,9 +78,21 @@ const postDaftar = (conn, nama, username, hashed_pass, no_hp, alamat) => {
     });
 };
 
-const getDataMember = conn => {
+const getDataMember = (conn) => {
     return new Promise((resolve, reject) => {
         conn.query(`SELECT * FROM member WHERE status = 1`, (err, result) => {
+            if(err){
+                reject(err);
+            } else{
+                resolve(result);
+            }
+        });
+    });
+};
+
+const getDataMemberLIMIT = (conn, startLimit, resultPerPage) => {
+    return new Promise((resolve, reject) => {
+        conn.query(`SELECT * FROM member WHERE status = 1 LIMIT ${startLimit}, ${resultPerPage}`, (err, result) => {
             if(err){
                 reject(err);
             } else{
@@ -271,8 +286,36 @@ app.get('/homeMember', isAuthMember, async (req, res) => {
 app.get('/dataMember', isAuthAdmin, async (req, res) => {
     const conn = await dbConnect();
     let dataSession = req.session.data;
-    let dataMember = await getDataMember(conn);
-    res.render('dataMember', {dataSession, dataMember})
+    // let dataMember = await getDataMember(conn);
+    let query = 'SELECT * FROM member WHERE status = 1'
+    conn.query(query, (err, result) => {
+        
+        const numOfResults = result.length;
+        const numberOfPages = Math.ceil(numOfResults/resultPerPage);
+        let page = req.query.page ? Number(req.query.page) : 1;
+        console.log(resultPerPage)
+
+        if(page > numberOfPages){
+            res.redirect('/dataMember?page=' + encodeURIComponent(numberOfPages));
+        } else if(page < 1){
+            res.redirect('/dataMember?page=' + encodeURIComponent('1'));
+        }
+
+        const startLimit = (page - 1) * resultPerPage;
+        query = `SELECT * FROM member WHERE status = 1 LIMIT ${startLimit}, ${resultPerPage}`
+        conn.query(query, (err, result) => {
+            if(err) throw err;
+            let iterator = (page - 5) < 1 ? 1 : page - 5;
+            let endingLink = (iterator + 9) <= numberOfPages ? (iterator + 9) : page + (numberOfPages - page);
+    
+            if (endingLink < (page + 4)){
+                iterator -= (page + 4) - numberOfPages;
+            }
+            
+            res.render('dataMember', {dataSession, result, page, iterator, endingLink, numberOfPages})
+        });
+
+    })
 });
 
 app.get('/memberBaru', isAuthAdmin, async (req, res) => {

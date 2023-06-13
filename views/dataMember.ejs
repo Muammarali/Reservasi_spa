@@ -38,7 +38,7 @@
             
             <tbody>
                 <% let i = 1 %>
-                <% for(let row of dataMember) { %>
+                <% for(let row of result) { %>
                     <tr>
                         <td><%= i %></td>
                         <td><%= row.nama %></td>
@@ -100,6 +100,19 @@
                 <% } %>
             </tbody>
         </table>
+
+        <div class="pagination">
+            <% if (page > 1) { %> <a href="/dataMember?page=<%= page-1 %>">Back</a> <% } %>
+            <% for(let i = 1; i <= endingLink; i++) { %>
+                <% if (i === page) { %>
+                    <a class="selectedLink" href="/dataMember?page=<%= i %>"><%= i %></a>
+                    <% continue; %>
+            <% } %>
+                <a href="/dataMember?page=<%= i %>"><%= i %></a>
+                <% } %>
+                <% if (page < numberOfPages) { %> <a href="/dataMember?page=<%=page+1%>">Next</a> <% } %>
+        </div>
+
     </div>
 
 </body>

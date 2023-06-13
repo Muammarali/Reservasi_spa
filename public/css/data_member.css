@@ -13,7 +13,6 @@ body {
 .container {
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
     height: 100vh;
     color: black;
@@ -34,11 +33,12 @@ body {
     border-collapse: collapse;
     text-align: left;
     overflow: hidden;
+    margin-top: 200px;
     box-shadow: 0 5px 10px gray;
     background-color: white;
     border-radius:8px;
     max-width: 1080px;
-    min-width: 20%;
+    min-width: 1080px;
 }
 
 .container table thead{
@@ -72,6 +72,19 @@ body {
 .container table tbody tr td span{
     float: right;
     cursor: pointer;
+}
+
+.pagination{
+    margin: 20px 0 0 0;
+    border-radius: 20px;
+    background-color: white;
+    width: auto;
+    height: auto;
+}
+
+.pagination a{
+    text-decoration: none;
+    margin: 0 10px 0 10px;
 }
 
 .title {
