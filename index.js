@@ -293,14 +293,14 @@ app.get('/dataMember', isAuthAdmin, async (req, res) => {
         const numOfResults = result.length;
         const numberOfPages = Math.ceil(numOfResults/resultPerPage);
         let page = req.query.page ? Number(req.query.page) : 1;
-        console.log(resultPerPage)
+        // console.log(resultPerPage)
 
         if(page > numberOfPages){
             res.redirect('/dataMember?page=' + encodeURIComponent(numberOfPages));
         } else if(page < 1){
             res.redirect('/dataMember?page=' + encodeURIComponent('1'));
         }
-
+        
         const startLimit = (page - 1) * resultPerPage;
         query = `SELECT * FROM member WHERE status = 1 LIMIT ${startLimit}, ${resultPerPage}`
         conn.query(query, (err, result) => {
@@ -314,7 +314,7 @@ app.get('/dataMember', isAuthAdmin, async (req, res) => {
             
             res.render('dataMember', {dataSession, result, page, iterator, endingLink, numberOfPages})
         });
-
+        conn.release();
     })
 });
 
@@ -322,6 +322,7 @@ app.get('/memberBaru', isAuthAdmin, async (req, res) => {
     const conn = await dbConnect();
     let dataSession = req.session.data;
     let dataMember = await getDataMemberBaru(conn);
+    conn.release();
     res.render('memberBaru', {dataSession, dataMember})
 });
 
@@ -329,6 +330,7 @@ app.get('/bodyMassage', isAuthAdmin, async (req, res) => {
     const conn = await dbConnect();
     let dataSession = req.session.data;
     let dataBodyM = await getDataBodyM(conn);
+    conn.release();
     res.render('bodyMassage', {dataSession, dataBodyM})
 });
 
@@ -369,7 +371,7 @@ app.post('/login', async (req, res) => {
             res.redirect('/homeAdmin');
         } else if (dataMember.length > 0){
             req.session.data = dataMember[0].nama;
-            console.log(dataMember[0].status)
+            // console.log(dataMember[0].status)
             
             // console.log(req.session.data);
             if (dataMember[0].status == 1){
