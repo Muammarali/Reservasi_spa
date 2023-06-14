@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2023 at 05:25 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Jun 04, 2023 at 11:24 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -31,7 +31,7 @@ CREATE TABLE `admin` (
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `nama` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `admin`
@@ -52,15 +52,7 @@ CREATE TABLE `cabang` (
   `alamat` varchar(64) NOT NULL,
   `id_kota` int(11) NOT NULL,
   `username` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `cabang`
---
-
-INSERT INTO `cabang` (`no_cabang`, `nama`, `alamat`, `id_kota`, `username`) VALUES
-(1, 'BaliHalus Riau Bandung', 'Jalan Riau No. 7', 1, 'admin'),
-(2, 'BaliHalus Denpasar Bali', 'Jalan Ngurah Rai No. 27', 2, 'admin');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -71,14 +63,14 @@ INSERT INTO `cabang` (`no_cabang`, `nama`, `alamat`, `id_kota`, `username`) VALU
 CREATE TABLE `kota` (
   `id_kota` int(11) NOT NULL,
   `nama_kota` varchar(32) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `kota`
 --
 
 INSERT INTO `kota` (`id_kota`, `nama_kota`) VALUES
-(1, 'Bandung'),
+(1, 'Kota Bandung'),
 (2, 'Denpasar');
 
 -- --------------------------------------------------------
@@ -90,19 +82,10 @@ INSERT INTO `kota` (`id_kota`, `nama_kota`) VALUES
 CREATE TABLE `layanan` (
   `id_layanan` int(11) NOT NULL,
   `harga` int(15) NOT NULL,
-  `masker` varchar(50) DEFAULT NULL,
-  `scrub` varchar(50) DEFAULT NULL,
-  `oil` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `layanan`
---
-
-INSERT INTO `layanan` (`id_layanan`, `harga`, `masker`, `scrub`, `oil`) VALUES
-(1, 40000, NULL, NULL, 'Jasmine'),
-(2, 60000, NULL, NULL, 'Rose'),
-(3, 25000, 'Coklat', 'Coklat', NULL);
+  `masker` varchar(50) NOT NULL,
+  `scrub` varchar(50) NOT NULL,
+  `oil` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -117,25 +100,14 @@ CREATE TABLE `member` (
   `alamat` varchar(64) NOT NULL,
   `no_hp` varchar(15) NOT NULL,
   `status` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `member`
 --
 
 INSERT INTO `member` (`username`, `password`, `nama`, `alamat`, `no_hp`, `status`) VALUES
-('dustin123', 'yTime6HZWLia4fs1TAFBgVnTm/ajCZgyg1qsAqX7Ges=', 'Dustin T', 'Jalan Batik Pekalongan No. 36', '085721556867', 1),
-('faisal123', 'xRcHQUzF4bp4HClsyK4f+U3pshfR5DNgmb8ESihshqI=', 'Faisal', 'Jalan Ciumbuleuit No. 1', '085721556867', 1),
-('gasta123', 'iyLwmf+fwn9br5Gm4QYlx+al7fXpmcUxZO8sQKilPaE=', 'Gasta', 'Jalan Ciumbuleuit No. 1', '085721556867', 1),
-('irsyad123', 'mG5PRcAMbMS2YVJKnpN6WaBYBPxf7DHfdbfwsujgS10=', 'Irsyad', 'Jalan Bukit Jarian No. 6', '0813205728512', 1),
-('jule123', 'Nt5jHImhHBrgTuVefyqfBEc+Ccu87d25L2wAcGsqn24=', 'Julaeha', 'Jalan Sukaakur No. 9', '089646436464', 1),
-('kurnia123', 'ElCSvcn6iKTEBUEgo/E2nVISXhqiN0BuC/mhWQxTlo4=', 'Kurnia', 'Jalan Batik Pekalongan No. 36', '085721556867', 1),
-('member123', 'VgA3boY9L1egU1GPMkrThAsLwjSLVzrygae3y+eiKMY=', 'Member 1', 'Jalan Bukit Jarian No. 6', '089646436360', 1),
-('mone123', 'SV12di83wK1J3I3bZ6uQTrMsKIr6/hyTVrDLaYRAy0Y=', 'Mone', 'Jalan Ciumbuleuit No. 1', '0813205728512', 1),
-('ruben123', '86n32m3fuWapOQhYYBVC7/8alwnyHFgsZBfzW1BFu8o=', 'Ruben', 'Jalan Sukaakur No. 9', '089646436361', 1),
-('sergio123', '53y5lEGPW8DsEAe2wTeRjZrtTnsL3kXXSlDQknLC1gI=', 'Sergio', 'Jalan Cijotang No. 1', '085721556867', 0),
-('ujang_asbes', 'EqQAKkDPePiS/0ianRoWYXYT7HVFh5nkUxQw69V0cPs=', 'Ujang Ismail', 'Jalan Singaparna', '081313131313', 1),
-('wildanrizkii', 'Hsh8VmOrr3Kj8msFfxYYbMEjPlmQZDhW/veBB4o9o+8=', 'Wildan Rizki Nurfauzi', 'Jalan Batik Pekalongan No. 36', '089646436360', 1);
+('ujang_asbes', 'EqQAKkDPePiS/0ianRoWYXYT7HVFh5nkUxQw69V0cPs=', 'ujang', 'Jalan Singaparna', '081313131313', 0);
 
 -- --------------------------------------------------------
 
@@ -150,7 +122,7 @@ CREATE TABLE `reservasi` (
   `no_cabang` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `id_layanan` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
@@ -205,7 +177,7 @@ ALTER TABLE `reservasi`
 -- AUTO_INCREMENT for table `cabang`
 --
 ALTER TABLE `cabang`
-  MODIFY `no_cabang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `no_cabang` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `kota`
@@ -217,7 +189,7 @@ ALTER TABLE `kota`
 -- AUTO_INCREMENT for table `layanan`
 --
 ALTER TABLE `layanan`
-  MODIFY `id_layanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_layanan` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `reservasi`
