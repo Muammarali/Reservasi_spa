@@ -1,50 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>cabang</title>
-    <link rel="stylesheet" href="/css/cabang.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<body>
+    <link rel="stylesheet" href="/css/cabang.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      src="https://kit.fontawesome.com/985f81e0fc.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
     <%- include('sidebarMember.ejs')%>
     <main>
-        <header>
-            <div class="user-info">
-                <img src="/images/Vector.png">
-                <p>nama</p>
-            </div>
-
-        </header>
-        <div class="content">
-            <h3>Selamat datang dani <br> pilih cabang terlebih dahulu</h3>
-            <div class="form-group">
-                <label for="wilayah">Kota/Kabupaten</label>
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
-            </div>
-            <div class="pilihan-wilayah">
-                
-                <div class="card">
-                    <h4>Nama Cabang</h4>
-                    <p>alamat</p>
-                </div>
-                <div class="card">
-                    <h4>Nama Cabang</h4>
-                    <p>alamat</p>
-                </div>
-                <div class="card">
-                    <h4>Nama Cabang</h4>
-                    <p>alamat</p>
-                </div>
-            </div>
+      <header>
+        <div class="profile">
+            <%- include('profile') %>
         </div>
+      </header>
+      <div class="content">
+        <h3>
+          Selamat datang dani <br />
+          pilih cabang terlebih dahulu
+        </h3>
+        <div class="form-group">
+          <label for="wilayah">Kota/Kabupaten</label>
+          <select class="form-select" aria-label="Default select example">
+            <option selected>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+        <div class="pilihan-wilayah">
+          <div class="card">
+            <h4>Nama Cabang</h4>
+            <p>alamat</p>
+          </div>
+          <div class="card">
+            <h4>Nama Cabang</h4>
+            <p>alamat</p>
+          </div>
+          <div class="card">
+            <h4>Nama Cabang</h4>
+            <p>alamat</p>
+          </div>
+        </div>
+      </div>
     </main>
-</body>
+  </body>
 </html>

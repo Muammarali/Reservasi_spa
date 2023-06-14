@@ -18,70 +18,46 @@
     <%- include('sidebarMember.ejs')%>
     <main>
       <header>
-        <div class="user-info">
-          <img src="/images/Vector.png" />
-          <p>nama</p>
-        </div>
+        <div class="profile">
+          <%- include('profile') %>
+      </div>
       </header>
       <div class="content">
         <div class="logo">
           <img src="/images/balihalus.png" />
         </div>
-        <div class="wrapper-alamat-waktu">
-          <div class="card">
-            <div class="card-alamat">
-              <h4>Nama Cabang</h4>
-              <p>alamat</p>
-            </div>
-          </div>
-          <div class="content-waktu">
-            <div class="tanggal">
-              <label for="tanggal">Tanggal :<br /></label>
-              <input type="date" id="tanggal" name="tanggal" />
-            </div>
-            <div class="jam">
-              <label for="jam">Jam :<br /></label>
-              <input type="time" id="jam" name="jam" />
-            </div>
-          </div>
-        </div>
-
-        <div class="layanan">
-          <h4 class="judul">Pilih Layanan</h4>
-          <div class="wrapper-layanan-pilihan">
-            <div class="layanan-pilihan">
-              <div class="card">
-                <h4>Spa</h4>
-                <div class="form-group-masker">
-                  <label for="wilayah">Masker :<br /></label>
-                  <select
-                    class="form-select"
-                    aria-label="Default select example"
-                  >
-                    <option selected>Silahkan memilih pilihan</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
+        <div class="wrapper">
+          <div class="wrapper-alamat-waktu">
+            <div class="card">
+              <div class="card-alamat">
+                <img src="/images/gambarCabang.jpg" alt="gambar cabang" />
+                <div class="card-alamat-text">
+                  <h4>Nama Cabang</h4>
+                  <p>alamat</p>
                 </div>
-                <div class="form-group-scrub">
-                  <label for="wilayah">Scrub :<br /></label>
-                  <select
-                    class="form-select"
-                    aria-label="Default select example"
-                  >
-                    <option selected>Silahkan memilih pilihan</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
-                </div>
-                <button class="submit">Pilih</button>
               </div>
-              <div class="card">
-                <h4>Body Massage</h4>
-                <div class="form-group-scrub">
-                    <label for="wilayah">Oil :<br /></label>
+            </div>
+            <div class="content-waktu">
+              <div class="tanggal">
+                <label for="tanggal">Tanggal :<br /></label>
+                <input type="date" id="tanggal" name="tanggal" />
+              </div>
+              <div class="jam">
+                <label for="jam">Jam :<br /></label>
+                <input type="time" id="jam" name="jam" />
+              </div>
+            </div>
+          </div>
+  
+          <div class="layanan">
+            <h4 class="judul">Pilih Layanan</h4>
+            <div class="wrapper-layanan-pilihan">
+              <div class="layanan-pilihan">
+                <div id="card-spa" class="card">
+                  <h4>Spa<br>Rp 200.000</h4>
+                  
+                  <div class="form-group">
+                    <label for="Masker">Masker :<br /></label>
                     <select
                       class="form-select"
                       aria-label="Default select example"
@@ -92,15 +68,47 @@
                       <option value="3">Three</option>
                     </select>
                   </div>
-                <button class="submit">Pilih</button>
-              </div>
-              <div class="card">
-                <h4>Refleksi</h4>
-                <button class="submit">Pilih</button>
+                  <div class="form-group">
+                    <label for="Scrub">Scrub :<br /></label>
+                    <select
+                      class="form-select"
+                      aria-label="Default select example"
+                    >
+                      <option selected>Silahkan memilih pilihan</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                  <button class="submit">Pilih</button>
+                </div>
+                <div id="card-bodyMassage" class="card">
+                  <h4>Body Massage<br>Rp 150.000</h4>
+                  
+                  <div class="form-group">
+                    <label for="Oil">Oil :<br /></label>
+                    <select
+                      class="form-select"
+                      aria-label="Default select example"
+                    >
+                      <option selected>Silahkan memilih pilihan</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                  <button class="submit">Pilih</button>
+                </div>
+                <div id="card-refleksi" class="card">
+                  <h4>Refleksi<br>Rp 100.000</h4>
+                  
+                  <button class="submit">Pilih</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        
       </div>
     </main>
   </body>
