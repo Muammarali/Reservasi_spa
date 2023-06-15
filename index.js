@@ -186,6 +186,54 @@ const updateDataBodyM= (conn, data, oil) => {
     });
 };
 
+const getDataSpaMasker= conn => {
+    return new Promise((resolve, reject) => {
+        conn.query(`SELECT id_layanan, masker FROM layanan WHERE masker IS NOT NULL`, (err, result) => {
+            if(err){
+                reject(err);
+            } else{
+                resolve(result);
+            }
+        });
+    });
+};
+
+const updateDataSpaMasker= (conn, data, masker) => {
+    return new Promise((resolve, reject) => {
+        conn.query(`UPDATE layanan SET masker = '${masker}' WHERE id_layanan = '${data}'`, (err, result) => {
+            if(err){
+                reject(err);
+            } else{
+                resolve(result);
+            }
+        });
+    });
+};
+
+const getDataSpaScrub= conn => {
+    return new Promise((resolve, reject) => {
+        conn.query(`SELECT id_layanan, scrub FROM layanan WHERE scrub IS NOT NULL`, (err, result) => {
+            if(err){
+                reject(err);
+            } else{
+                resolve(result);
+            }
+        });
+    });
+};
+
+const updateDataSpaScrub= (conn, data, scrub) => {
+    return new Promise((resolve, reject) => {
+        conn.query(`UPDATE layanan SET scrub = '${scrub}' WHERE id_layanan = '${data}'`, (err, result) => {
+            if(err){
+                reject(err);
+            } else{
+                resolve(result);
+            }
+        });
+    });
+};
+
 const getDataCabang = (conn) => {
     return new Promise((resolve, reject) => {
         conn.query(`SELECT * FROM cabang JOIN kota ON kota.id_kota = cabang.id_kota`, (err, result) => {
@@ -275,22 +323,54 @@ app.get('/dataMember', isAuthAdmin, async (req, res) => {
     const conn = await dbConnect();
     let dataSession = req.session.data;
     let dataMember = await getDataMember(conn);
+    conn.release();
     res.render('dataMember', {dataSession, dataMember})
+});
+
+app.get('/memberBaru', isAuthAdmin, async (req, res) => {
+  const conn = await dbConnect();
+  let dataSession = req.session.data;
+  let dataMember = await getDataMemberBaru(conn);
+  conn.release();
+  res.render('memberBaru', {dataSession, dataMember})
 });
 
 app.get('/edit/:data', async (req, res) => {
     const conn = await dbConnect();
-    let dataSession = req.session.data
-    let dataMember = await getDataMember(conn);
+    let dataSession = req.session.data;
+    let dataMember = await getDataMemberBaru(conn);
     res.render('dataMember', {dataSession, dataMember})
-
 });
 
-app.get("/logout", async (req, res) => {
-  let data = "";
-  req.session.isAuthAdmin = false;
-  req.session.isAuthMember = false;
-  res.redirect("login");
+
+app.get('/bodyMassage', isAuthAdmin, async (req, res) => {
+    const conn = await dbConnect();
+    let dataSession = req.session.data;
+    let dataBodyM = await getDataBodyM(conn);
+    res.render('bodyMassage', {dataSession, dataBodyM})
+});
+
+app.get('/spaMasker', isAuthAdmin, async (req, res) => {
+  const conn = await dbConnect();
+  let dataSession = req.session.data;
+  let dataSpaMasker = await getDataSpaMasker(conn);
+  conn.release();
+  res.render('spaMasker', {dataSession, dataSpaMasker})
+});
+
+app.get('/spaScrub', isAuthAdmin, async (req, res) => {
+  const conn = await dbConnect();
+  let dataSession = req.session.data;
+  let dataSpaScrub = await getDataSpaScrub(conn);
+  conn.release();
+  res.render('spaScrub', {dataSession, dataSpaScrub})
+});
+
+app.get('/laporan', isAuthAdmin, async (req, res) => {
+  const conn = await dbConnect();
+  let dataSession = req.session.data;
+  conn.release();
+  res.render('laporan', {dataSession})
 });
 
 app.get("/cabang", isAuthMember, async (req, res) => {
@@ -304,10 +384,18 @@ app.get("/reservasi", isAuthMember, async (req, res) => {
   let dataSession = req.session.data;
   res.render("reservasi", { dataSession });
 });
+
 app.get("/historiReservasi", isAuthMember, async (req, res) => {
   const conn = await dbConnect();
   let dataSession = req.session.data;
   res.render("historiReservasi", { dataSession });
+});
+
+app.get('/logout', async (req, res) => {
+    let data = "";
+    req.session.isAuthAdmin = false;
+    req.session.isAuthMember = false;
+    res.redirect('login')
 });
 
 app.get('/kelolaCabang', isAuthAdmin, async (req, res) => {
@@ -444,6 +532,34 @@ app.post('/editOil/:data', async (req, res) => {
 
     conn.release();
     res.redirect('/bodyMassage')
+});
+
+app.post('/editMasker/:data', async (req, res) => {
+    const conn = await dbConnect();
+    const {data} = req.params
+    const {masker} = req.body
+
+    // let dataSession = req.session.data
+    // let dataBodyM = await getDataMember(conn);
+    // const dataEdit = await getDataEdit(conn, data)
+    const updateData = await updateDataSpaMasker(conn, data, masker)
+
+    conn.release();
+    res.redirect('/spaMasker')
+});
+
+app.post('/editScrub/:data', async (req, res) => {
+    const conn = await dbConnect();
+    const {data} = req.params
+    const {scrub} = req.body
+
+    // let dataSession = req.session.data
+    // let dataBodyM = await getDataMember(conn);
+    // const dataEdit = await getDataEdit(conn, data)
+    const updateData = await updateDataSpaScrub(conn, data, scrub)
+
+    conn.release();
+    res.redirect('/spaScrub')
 });
 
 app.listen(PORT, () => {
