@@ -286,7 +286,6 @@ app.get('/homeMember', isAuthMember, async (req, res) => {
 app.get('/dataMember', isAuthAdmin, async (req, res) => {
     const conn = await dbConnect();
     let dataSession = req.session.data;
-    // let dataMember = await getDataMember(conn);
     let query = 'SELECT * FROM member WHERE status = 1'
     conn.query(query, (err, result) => {
         
@@ -344,7 +343,7 @@ app.get('/logout', async (req, res) => {
 app.get('/kelolaCabang', isAuthAdmin, async (req, res) => {
     const conn = await dbConnect();
     let { selected } = req.body;
-    console.log(selected)
+    // console.log(selected)
     let dataSession = req.session.data;
     const dataCabang = await getDataCabang(conn);
     const dataKota = await getDataKota(conn);
@@ -451,7 +450,7 @@ app.post('/tambah/:data', async (req, res) => {
     res.redirect('/memberBaru')
 });
 
-app.post('/tolak/:data', async (req, res) => {
+app.get('/tolak/:data', async (req, res) => {
     const conn = await dbConnect();
     const {data} = req.params
     const updateData = await tolakMember(conn, data)

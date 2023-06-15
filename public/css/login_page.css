@@ -73,6 +73,7 @@ body{
 
 .form .alert{
     position: relative;
+    color: red;
     margin: 0;
     padding: 0;
 }

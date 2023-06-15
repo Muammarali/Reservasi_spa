@@ -44,6 +44,7 @@ body {
     border-radius: 8px;
     max-width: 1080px;
     min-width: 1080px;
+    min-height: 99px;
 }
 
 .container table thead{
@@ -121,14 +122,13 @@ body {
     display: none;
 }
 
-/* Gaya untuk konten popup */
 .popup {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     width: 400px;
-    height: 46%;
+    height: 420px;
     max-width: 400px;
     overflow: hidden;
 }

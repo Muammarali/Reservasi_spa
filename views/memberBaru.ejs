@@ -8,9 +8,7 @@
     <link rel="icon" href="images/logo-web.png">
     <link rel="stylesheet" href="css/member_baru.css">
     <script src="https://kit.fontawesome.com/985f81e0fc.js" crossorigin="anonymous"></script>
-    <script src="js/dataMember.js" defer></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="js/memberBaru.js" defer></script>
 
 </head>
 
@@ -47,11 +45,10 @@
                         <td><%= row.alamat %></td>
                         <td>
                             
-                            <a class="btn btn-dark" data-toggle="modal" data-target="#tambahModel<%= row.username %>"><i class="fa-solid fa-circle-check fa-xl" style="color: green;"></i></a>
-                            <div class="modal fade" id="tambahModel<%= row.username %>" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <!-- <span class ="modal-close" data-dismiss="modal"><i class="fa-solid fa-xmark" style="color: #000000;"></i></span> -->
+                            <a class="btnEdit" data-target="#bukaModal<%= row.username %>"><i class="fa-solid fa-circle-check fa-xl" style="color: green;"></i></a>
+                            <div class="overlay" id="#bukaModal<%= row.username %>">
+                                <div class="popup">
+                                    <div>
                                         <div class="edit modal-header">
                                             <p>Apakah Anda akan menerima member ini?</p>
                                         </div>
@@ -78,10 +75,9 @@
                                                 </div>
                                                 <div class="footer-modal">
                                                     <button class="btn-edit">Terima</button>
-                                                    <button class="btn-batal" data-dismiss="modal">Batal</button>
+                                                    <button type="button" class="btn-batal close" data-target="#bukaModal<%= row.username %>">Batal</button>
                                                 </div>
                                             </form>
-                            
                             
                                         </div>
                                     
@@ -90,48 +86,9 @@
                             </div>
                             </div>
 
-                            <a class="btn btn-dark" data-toggle="modal" data-target="#hapusModal<%= row.username %>"><i class="fa-solid fa-circle-xmark fa-xl" style="color: red;"></i></a>
-                            <div class="modal fade" id="hapusModal<%= row.username %>" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <!-- <span class ="modal-close" data-dismiss="modal"><i class="fa-solid fa-xmark" style="color: #000000;"></i></span> -->
-                                        <div class="edit modal-header">
-                                            <p>Apakah Anda akan menolak member ini?</p>
-                                        </div>
-                                        <div class="form">
-                                            <form method="post" action="/tolak/<%= row.username %>">
-                                                <div class="data-box">
-                                                    <div class="data-form">
-                                                        <p>Nama :</p>
-                                                        <p><%= row.nama %></p>
-                                                    </div>
-    
-                                                    <div class="data-form">
-                                                        <p>Username :</p>
-                                                        <p><%= row.username %></p>
-                                                    </div>
-                                                    <div class="data-form">
-                                                        <p>Nomor HP :</p>
-                                                        <p><%= row.no_hp %></p>
-                                                    </div>
-                                                    <div class="data-form">
-                                                        <p>Alamat :</p>
-                                                        <p><%= row.alamat %></p>
-                                                    </div>
-                                                </div>
-                                                <div class="footer-modal">
-                                                    <button class="btn-edit">Tolak</button>
-                                                    <button class="btn-batal" data-dismiss="modal">Batal</button>
-                                                </div>
-                                            </form>
+                            <a href="/tolak/<%= row.username %>" class="btnReject" data-target="#reject<%= row.username %>"><i class="fa-solid fa-circle-xmark fa-xl" style="color: red;"></i></a>
                             
                             
-                                        </div>
-                                    
-                                    </div>
-                                </div>
-                            </div>
-                            </div>
                         </td>
                     </tr>
                     <% i++ %>
