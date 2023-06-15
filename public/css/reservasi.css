@@ -1,0 +1,246 @@
+*,
+html {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  display: flex;
+  width: 100vw;
+  min-height: 100vh;
+}
+aside {
+  width: 25%;
+  max-height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px 0px;
+}
+.sidebar {
+  width: 200px;
+  background-color: #f2f2f2;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+main {
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: rgb(229, 228, 228);
+  background-image: url("../images/bg-home.jpg");
+  background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    margin-left: 200px;
+}
+header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+header .user-info {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+  width: 10vw;
+  color: white;
+}
+.profile i {
+  margin-top: -24px;
+}
+/* content */
+.card{
+  box-shadow: 0 0 10px rgba(138, 82, 50, 0.596);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  
+
+}
+.content .logo img{
+
+  filter: brightness(0) invert(1);
+  width: 300px;
+  height: auto;
+  margin-left: 42.5%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+
+}
+.wrapper-alamat-waktu {
+  display: flex;
+  padding-bottom: 1em;
+  height: 36vh;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 16vw;
+  margin-right: 15vw;
+  
+}
+.wrapper-alamat-waktu .card {
+  width: 20%;
+  height: 90%;
+  background-color: #382115;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-radius: 10px;
+}
+.wrapper-alamat-waktu .card-alamat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+
+}
+.wrapper-alamat-waktu .card-alamat img{
+  margin-bottom: 5%;
+  width: 100%;
+  height: 10vw;
+}
+.card-alamat-text{
+  text-align: center;
+
+  width: 100%;
+  color: white;
+
+  font-size: smaller;
+  margin-bottom: 15px;
+}
+.content-waktu {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1em;
+  height: fit-content;
+
+}
+.content-waktu .tanggal {
+  margin-bottom: 20px;
+}
+.content-waktu .tanggal label {
+  font-size: 25px;
+  color: white;
+}
+.content-waktu .tanggal input {
+  font-size: 25px;
+  width: 40vw;
+  text-align: center;
+  border-radius: 10px;
+}
+.content-waktu .jam label {
+  font-size: 25px;
+  color: white;
+}
+.content-waktu .jam input {
+  font-size: 25px;
+  width: 40vw;
+  text-align: center;
+  border-radius: 10px;
+}
+
+/*-------------------------------------------------*/
+.layanan {
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.layanan .judul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5vw;
+  color: white;
+}
+.wrapper-layanan-pilihan {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.layanan-pilihan {
+  margin-top: 15px;
+  width: 50em;
+  margin-left: 10px;
+  height: 35vh;
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+}
+.layanan-pilihan .card {
+  width: 100%;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #382115;
+}
+.layanan-pilihan .card h4 {
+  width: 100%;
+  text-align: center;
+  font-size: 1.4vw;
+  color: white;
+  border-radius: 10px;
+  margin-top: 2px;
+  margin-bottom: -10px;
+}
+
+.layanan-pilihan .card label {
+  font-size: 1.5vw;
+  color: white;
+  background-color: rgba(131, 131, 131, 0.5);
+  border-radius: 5px;
+
+}
+.layanan-pilihan .card select {
+  border-radius: 10px;
+  height: 2vw;
+  width: 100%;
+  font-size: 1vw;
+}
+
+#card-spa{
+  background-image: url("../images/gambarSpa.jpg");
+  background-size:100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#card-bodyMassage{
+  background-image: url("../images/gambarBodyMassage.jpg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#card-refleksi{
+  background-image: url("../images/gambarRefleksi.jpg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.layanan-pilihan .card .submit {
+  background-color: #543321;
+  width: 40%;
+  height: 12%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  font-size: 1vw;
+  font-weight: 600;
+  color: white;
+}
+
+.layanan-pilihan .card .submit:hover {
+  cursor: pointer;
+  background-color: brown;
+}

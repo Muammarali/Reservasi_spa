@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>reservasi</title>
+    <link rel="stylesheet" href="/css/reservasi.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <%- include('sidebarMember.ejs')%>
+    <main>
+      <header>
+        <div class="profile">
+          <%- include('profile') %>
+      </div>
+      </header>
+      <div class="content">
+        <div class="logo">
+          <img src="/images/balihalus.png" />
+        </div>
+        <div class="wrapper">
+          <div class="wrapper-alamat-waktu">
+            <div class="card">
+              <div class="card-alamat">
+                <img src="/images/gambarCabang.jpg" alt="gambar cabang" />
+                <div class="card-alamat-text">
+                  <h4>Nama Cabang</h4>
+                  <p>alamat</p>
+                </div>
+              </div>
+            </div>
+            <div class="content-waktu">
+              <div class="tanggal">
+                <label for="tanggal">Tanggal :<br /></label>
+                <input type="date" id="tanggal" name="tanggal" />
+              </div>
+              <div class="jam">
+                <label for="jam">Jam :<br /></label>
+                <input type="time" id="jam" name="jam" />
+              </div>
+            </div>
+          </div>
+  
+          <div class="layanan">
+            <h4 class="judul">Pilih Layanan</h4>
+            <div class="wrapper-layanan-pilihan">
+              <div class="layanan-pilihan">
+                <div id="card-spa" class="card">
+                  <h4>Spa<br>Rp 200.000</h4>
+                  
+                  <div class="form-group">
+                    <label for="Masker">Masker :<br /></label>
+                    <select
+                      class="form-select"
+                      aria-label="Default select example"
+                    >
+                      <option selected>Silahkan memilih pilihan</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="Scrub">Scrub :<br /></label>
+                    <select
+                      class="form-select"
+                      aria-label="Default select example"
+                    >
+                      <option selected>Silahkan memilih pilihan</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                  <button class="submit">Pilih</button>
+                </div>
+                <div id="card-bodyMassage" class="card">
+                  <h4>Body Massage<br>Rp 150.000</h4>
+                  
+                  <div class="form-group">
+                    <label for="Oil">Oil :<br /></label>
+                    <select
+                      class="form-select"
+                      aria-label="Default select example"
+                    >
+                      <option selected>Silahkan memilih pilihan</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                  <button class="submit">Pilih</button>
+                </div>
+                <div id="card-refleksi" class="card">
+                  <h4>Refleksi<br>Rp 100.000</h4>
+                  
+                  <button class="submit">Pilih</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </main>
+  </body>
+</html>

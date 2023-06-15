@@ -15,7 +15,7 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: 100vh;
+    height: auto;
     color: black;
     margin-left: 222px;
     margin-bottom: 100px;
@@ -239,4 +239,35 @@ body {
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.2s ease;
+}
+
+.pindah{
+    display: flex;
+    position: absolute;
+    top: 20%;
+    left: 20%;
+}
+
+.pindah .btn-masker {
+    border: white;
+    padding: 11px 35px;
+    font-size: 22px;
+    background-color: #585858;
+    color: white; 
+}
+
+.pindah .btn-scrub {
+    border: white;
+    margin-left: 5px;
+    padding: 11px 35px;
+    font-size: 22px;
+    background-color: #585858;
+    color: white;
+}
+
+.pindah .btn-masker.active,
+.pindah .btn-scrub.active {
+  background-color: brown; /* Warna latar belakang tombol saat aktif */
+  color: white; /* Warna teks tombol saat aktif */
+  font-weight: bold; /* Ketebalan teks tombol saat aktif */
 }
