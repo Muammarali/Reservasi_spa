@@ -10,11 +10,6 @@
     <link rel="stylesheet" href="css/kelola_cabang.css">
     <script src="https://kit.fontawesome.com/985f81e0fc.js" crossorigin="anonymous"></script>
     <script src="js/cabangAdmin.js" defer></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
-        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous"></script>
 
 </head>
 
@@ -33,21 +28,20 @@
             <i class="fa-solid fa-filter" style="color: #000000;"></i>
             <p>Kota :</p>
             <select name="dropdownKota" id="dropdownKota">
-                <option disabled selected>Pilih kota</option>
+                <option selected>Semua</option>
                 <% let j=1%>
                     <% for(let row of dataKota){ %>
-                        <option value="<% j %>">
+                        <option value="<%= row.nama_kota %>">
                             <%= row.nama_kota %>
                         </option>
                         <% }%>
             </select>
         </div>
 
-        <button class="btn-tambah" data-toggle="modal" data-target="#tambah">Tambah</button>
-        <div class="modal fade" id="tambah" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <!-- <span class ="modal-close" data-dismiss="modal"><i class="fa-solid fa-xmark" style="color: #000000;"></i></span> -->
+        <button class="btn-tambah" data-target="#tambah">Tambah</button>
+        <div class="overlay" id="#tambah">
+            <div class="popup">
+                <div>
                     <div class="edit modal-header">
                         <p>Tambah Cabang Baru</p>
                     </div>
@@ -56,19 +50,26 @@
                             <p>Nama</p>
                             <div class="input-form">
                                 <i class="fa-solid fa-user" style="color: #000000;"></i>
-                                <input type="text" name="nama" placeholder="Masukkan nama" required>
+                                <input type="text" name="namaCabang" placeholder="Masukkan nama cabang" required>
                             </div>
 
                             <p>Alamat</p>
                             <div class="input-form">
-                                <i class="fa-solid fa-at" style="color: #000000;"></i>
-                                <input type="text" name="username" placeholder="Masukkan alamat" required>
+                                <i class="fa-solid fa-address-card" style="color: #000000;"></i>
+                                <input type="text" name="alamatCabang" placeholder="Masukkan alamat" required>
                             </div>
 
                             <p>Kota</p>
-                            <div class="input-form">
-                                <i class="fa-solid fa-address-card" style="color: #000000;"></i>
-                                <input type="text" name="alamat" placeholder="Masukkan kota" required>
+                                <div class="input-form">
+                                <i class="fa-solid fa-city" style="color: #000000;"></i>
+                                <select name="pilihKota" id="dropdownTambahKota">
+                                    <option disabled selected>Pilih kota</option>
+                                    <% for(let row of dataKota){ %>
+                                        <option value="<%= row.nama_kota %>">
+                                            <%= row.nama_kota %>
+                                        </option>
+                                        <% }%>
+                                </select>
                             </div>
 
                             <div class="alert">
@@ -79,7 +80,7 @@
 
                             <div class="footer-modal">
                                 <button class="btn-edit">Simpan</button>
-                                <button class="btn-batal" data-dismiss="modal">Batal</button>
+                                <button type="button" class="btn-batal close" data-target="#tambah" >Batal</button>
                             </div>
                         </form>
 
@@ -97,7 +98,6 @@
                     <th>Nama</th>
                     <th>Alamat</th>
                     <th>Kota</th>
-                    <th>Gambar</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -120,16 +120,10 @@
                             </td>
                             <td>
                                 
-                            </td>
-                            <td>
-                                <a class="btn btn-dark" data-toggle="modal"
-                                    data-target="#editCabang<%= row.no_cabang %>"><i
-                                        class="fa-regular fa-pen-to-square fa-lg" style="color: #000000;"></i></a>
-                                <div class="modal fade" id="editCabang<%= row.no_cabang %>" tabindex="-1"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <!-- <span class ="modal-close" data-dismiss="modal"><i class="fa-solid fa-xmark" style="color: #000000;"></i></span> -->
+                                <a class="btnEdit" data-target="#bukaModal<%= row.no_cabang %>"><i class="fa-regular fa-pen-to-square fa-lg" style="color: #000000;"></i></a>
+                                <div class="overlay" id="#bukaModal<%= row.no_cabang %>">
+                                    <div class="popup">
+                                        <div>
                                             <div class="edit modal-header">
                                                 <p>Edit Data Cabang</p>
                                             </div>
@@ -145,20 +139,32 @@
                                                     <p>Alamat</p>
                                                     <div class="input-form">
                                                         <i class="fa-solid fa-at" style="color: #000000;"></i>
-                                                        <input type="text" name="username" value="<%= row.alamat %>"
+                                                        <input type="text" name="alamat" value="<%= row.alamat %>"
                                                             required>
                                                     </div>
 
                                                     <p>Kota</p>
                                                     <div class="input-form">
-                                                        <i class="fa-solid fa-city" style="color: #000000;"></i>
-                                                        <input type="tel" name="nomorhp" value="<%= row.nama_kota %>"
-                                                            required>
+                                                        <i class="fa-solid fa-address-card" style="color: #000000;"></i>
+                                                        <select name="editKota" id="dropdownTambahKota">
+                                                            <option selected><%= row.nama_kota %></option>
+                                                            <% let current= row.nama_kota %>
+
+                                                            
+                                                            <% for(let row of dataKota){ %>
+                                                                <% if (row.nama_kota != current){ %>
+                                                                    <option value="<%= row.nama_kota %>">
+                                                                        <%= row.nama_kota %>
+                                                                    </option>
+                                                                <% } %>
+                                                                
+                                                            <% }%>
+                                                        </select>
                                                     </div>
 
                                                     <div class="footer-modal">
                                                         <button class="btn-edit">Simpan</button>
-                                                        <button class="btn-batal" data-dismiss="modal">Batal</button>
+                                                        <button type="button" class="btn-batal close" data-target="#bukaModal<%= row.no_cabang %>">Batal</button>
                                                     </div>
                                                 </form>
 
