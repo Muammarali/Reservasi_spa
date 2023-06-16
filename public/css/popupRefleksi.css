@@ -22,10 +22,12 @@
   #pesan-refleksi{
     background-color: greenyellow;
     border-radius: 10px;
+    cursor: pointer;
   }
   #batal-refleksi{
     background-color: red;
     border-radius: 10px;
+    cursor: pointer;
   }
   #pesan-refleksi:hover {
     background-color: grey;

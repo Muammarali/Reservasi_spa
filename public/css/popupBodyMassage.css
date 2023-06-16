@@ -21,10 +21,12 @@
 #pesan-bodyMassage{
   background-color: greenyellow;
   border-radius: 10px;
+  cursor: pointer;
 }
 #batal-bodyMassage{
   background-color: red;
   border-radius: 10px;
+  cursor: pointer;
 }
 #pesan-bodyMassage:hover {
   background-color: grey;
