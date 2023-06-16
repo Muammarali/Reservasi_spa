@@ -151,7 +151,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     width: 400px;
-    height: 346px;
+    height: 360px;
     max-width: 400px;
     overflow: hidden;
 }
@@ -232,4 +232,11 @@ body {
 
 .form .btn-batal:hover{
     background-color: rgb(170, 170, 170);
+}
+
+select#dropdownTambahKota{
+    border: none;
+    background-color: transparent;
+    width: 90%;
+    height: 70%;
 }
