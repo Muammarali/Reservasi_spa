@@ -15,6 +15,7 @@ function closeModal(target) {
         button.addEventListener("click", function() {
             var target = button.getAttribute("data-target");
             openModal(target);
+            console.log(button)
         });
     });
 

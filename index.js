@@ -27,6 +27,8 @@ app.use(session({
     cookie: {secure: false}
 }));
 
+const resultPerPage = 10;
+
 const dbConnect = () => {
   return new Promise((resolve, reject) => {
     pool.getConnection((err, conn) => {
@@ -246,16 +248,19 @@ const getDataCabang = (conn) => {
     });
 };
 
-const getDataCabangEdit = (conn, data) => {
-    return new Promise((resolve, reject) => {
-        conn.query(`UPDATE layanan SET oil = '${oil}' WHERE id_layanan = '${data}'`, (err, result) => {
-            if(err){
-                reject(err);
-            } else{
-                resolve(result);
-            }
-        });
-    });
+const updateDataCabang = (conn, data, nama, alamat) => {
+  return new Promise((resolve, reject) => {
+    conn.query(
+      `UPDATE cabang SET nama = '${nama}', alamat = '${alamat}' WHERE no_cabang = '${data}'`,
+      (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
 };
 
 const getDataKota = (conn) => {
@@ -272,7 +277,6 @@ const getDataKota = (conn) => {
 
 const isAuthMember = (req, res, next) => {
   if (req.session.isAuthMember) {
-    req.session.isAuthAdmin = false;
     next();
   } else {
     res.redirect("/");
@@ -281,7 +285,6 @@ const isAuthMember = (req, res, next) => {
 
 const isAuthAdmin = (req, res, next) => {
   if (req.session.isAuthAdmin) {
-    req.session.isAuthMember = false;
     next();
   } else {
     res.redirect("/");
@@ -448,19 +451,26 @@ app.post('/login', async (req, res) => {
         const dataMember = await getCheckMember(conn, username, hashed_pass);
 
         if (dataAdmin.length > 0){
-            req.session.data = dataAdmin[0].nama;
-            req.session.isAuthAdmin = true;
-            // console.log(req.session.data);
-            res.redirect('/homeAdmin');
-        } else if (dataMember.length > 0){
-            req.session.data = dataMember[0].nama;
-            req.session.isAuthMember = true;
-            // console.log(req.session.data);
-            res.redirect('/homeMember');
-        } else{
-            data = "Username atau Password salah!";
-            res.render('login', {data});
-        }
+          req.session.data = dataAdmin[0].nama;
+          req.session.isAuthAdmin = true;
+          // console.log(req.session.data);
+          res.redirect('/homeAdmin');
+      } else if (dataMember.length > 0){
+          req.session.data = dataMember[0].nama;
+          // console.log(dataMember[0].status)
+          
+          // console.log(req.session.data);
+          if (dataMember[0].status == 1){
+              req.session.isAuthMember = true;
+              res.redirect('/homeMember');
+          } else{
+              data = "Maaf, akun Anda belum diterima oleh Admin!";
+              res.render('login', {data});
+          }
+      } else{
+          data = "Username atau Password salah!";
+          res.render('login', {data});
+      }
         
     }
     conn.release();
@@ -586,6 +596,25 @@ app.post('/editScrub/:data', async (req, res) => {
 
     conn.release();
     res.redirect('/spaScrub')
+});
+
+app.post('/editCabang/:data', async (req, res) => {
+  const conn = await dbConnect();
+  const {data} = req.params
+  const {nama, alamat} = req.body
+
+  let dataSession = req.session.data
+  let dataCabang = await getDataCabang(conn);
+  // const dataEdit = await getDataCabangEdit(conn, data)
+  const updateData = await updateDataCabang(
+    conn,
+    data,
+    nama,
+    alamat,
+    // nama_kota
+  );
+  conn.release();
+  res.redirect('/kelolaCabang')
 });
 
 app.listen(PORT, () => {
