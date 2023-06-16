@@ -18,9 +18,7 @@
     <%- include('sidebarMember.ejs')%>
     <main>
       <header>
-        <div class="profile">
-          <%- include('profile') %>
-      </div>
+        <div class="profile"><%- include('profile') %></div>
       </header>
       <div class="content">
         <div class="logo">
@@ -48,14 +46,14 @@
               </div>
             </div>
           </div>
-  
+
           <div class="layanan">
             <h4 class="judul">Pilih Layanan</h4>
             <div class="wrapper-layanan-pilihan">
               <div class="layanan-pilihan">
                 <div id="card-spa" class="card">
-                  <h4>Spa<br>Rp 200.000</h4>
-                  
+                  <h4>Spa<br />Rp 200.000</h4>
+
                   <div class="form-group">
                     <label for="Masker">Masker :<br /></label>
                     <select
@@ -80,11 +78,11 @@
                       <option value="3">Three</option>
                     </select>
                   </div>
-                  <button class="submit">Pilih</button>
+                  <button id="showPopup-spa" class="submit">Pilih</button>
                 </div>
                 <div id="card-bodyMassage" class="card">
-                  <h4>Body Massage<br>Rp 150.000</h4>
-                  
+                  <h4>Body Massage<br />Rp 150.000</h4>
+
                   <div class="form-group">
                     <label for="Oil">Oil :<br /></label>
                     <select
@@ -97,19 +95,59 @@
                       <option value="3">Three</option>
                     </select>
                   </div>
-                  <button class="submit">Pilih</button>
+                  <button id="showPopup-bodyMassage" class="submit">
+                    Pilih
+                  </button>
                 </div>
                 <div id="card-refleksi" class="card">
-                  <h4>Refleksi<br>Rp 100.000</h4>
-                  
-                  <button class="submit">Pilih</button>
+                  <h4>Refleksi<br />Rp 100.000</h4>
+                  <button id="showPopup-refleksi" class="submit">Pilih</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        
       </div>
+      <%- include('popupSpa.ejs')%> <%- include('popupBodyMassage.ejs')%> <%-
+      include('popupRefleksi')%>
+      <script>
+        //Pop Up Spa
+        document
+          .getElementById("showPopup-spa")
+          .addEventListener("click", function () {
+            document.getElementById("popup-spa").style.display = "flex";
+          });
+
+        document
+          .getElementById("batal-spa")
+          .addEventListener("click", function () {
+            document.getElementById("popup-spa").style.display = "none";
+          });
+
+        //Pop Up Body Massage
+        document
+          .getElementById("showPopup-bodyMassage")
+          .addEventListener("click", function () {
+            document.getElementById("popup-bodyMassage").style.display = "flex";
+          });
+
+        document.getElementById("batal-bodyMassage").addEventListener("click", function () {
+          document.getElementById("popup-bodyMassage").style.display = "none";
+        });
+
+        //Pop Up Refleksi
+        document
+          .getElementById("showPopup-refleksi")
+          .addEventListener("click", function () {
+            document.getElementById("popup-refleksi").style.display = "flex";
+          });
+
+        document
+          .getElementById("batal-refleksi")
+          .addEventListener("click", function () {
+            document.getElementById("popup-refleksi").style.display = "none";
+          });
+      </script>
     </main>
   </body>
 </html>

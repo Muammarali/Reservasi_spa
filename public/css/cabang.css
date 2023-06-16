@@ -102,7 +102,7 @@ header .user-info {
   background-color: #382115;
   height: 20vw;
   border-radius: 20px;
-  border: white solid 2px;
+
   display: flex;
   flex-direction: column;
   justify-content: flex-end;

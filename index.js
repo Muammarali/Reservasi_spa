@@ -304,6 +304,8 @@ app.get("/reservasi", isAuthMember, async (req, res) => {
   let dataSession = req.session.data;
   res.render("reservasi", { dataSession });
 });
+
+
 app.get("/historiReservasi", isAuthMember, async (req, res) => {
   const conn = await dbConnect();
   let dataSession = req.session.data;

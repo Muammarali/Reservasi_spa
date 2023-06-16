@@ -1,0 +1,35 @@
+.popup-refleksi-body {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+  .popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+  }
+
+  .klik-refleksi{
+    width: 100%;
+    height: 2vw;
+  }
+  #pesan-refleksi{
+    background-color: greenyellow;
+    border-radius: 10px;
+  }
+  #batal-refleksi{
+    background-color: red;
+    border-radius: 10px;
+  }
+  #pesan-refleksi:hover {
+    background-color: grey;
+  }
+  #batal-refleksi:hover {
+    background-color: grey;
+  }
