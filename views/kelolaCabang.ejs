@@ -25,7 +25,7 @@
     <div class="container">
 
         <div class="filter-kota">
-            <i class="fa-solid fa-filter" style="color: #000000;"></i>
+            <i class="fa-solid fa-filter" style="color: #ffffff;"></i>
             <p>Kota :</p>
             <select name="dropdownKota" id="dropdownKota">
                 <option selected>Semua</option>
@@ -46,7 +46,7 @@
                         <p>Tambah Cabang Baru</p>
                     </div>
                     <div class="form">
-                        <form method="post" action="/tambahCabang">
+                        <form method="post" action="/tambahCabang" enctype="multipart/form-data">
                             <p>Nama</p>
                             <div class="input-form">
                                 <i class="fa-solid fa-user" style="color: #000000;"></i>
@@ -60,7 +60,7 @@
                             </div>
 
                             <p>Kota</p>
-                                <div class="input-form">
+                            <div class="input-form">
                                 <i class="fa-solid fa-city" style="color: #000000;"></i>
                                 <select name="pilihKota" id="dropdownTambahKota">
                                     <option disabled selected>Pilih kota</option>
@@ -72,6 +72,11 @@
                                 </select>
                             </div>
 
+                            <p>Gambar Cabang</p>
+                            <div class="input-form">
+                                <input type="file" name="gambarCabang" accept="image/*">
+                            </div>
+
                             <div class="alert">
                                 <p>
                                     <%= //isExist %>
@@ -80,13 +85,10 @@
 
                             <div class="footer-modal">
                                 <button class="btn-edit">Simpan</button>
-                                <button type="button" class="btn-batal close" data-target="#tambah" >Batal</button>
+                                <button type="button" class="btn-batal close" data-target="#tambah">Batal</button>
                             </div>
                         </form>
-
-
                     </div>
-
                 </div>
             </div>
         </div>
@@ -119,8 +121,8 @@
                                 <%= row.nama_kota %>
                             </td>
                             <td>
-                                
-                                <a class="btnEdit" data-target="#bukaModal<%= row.no_cabang %>"><i class="fa-regular fa-pen-to-square fa-lg" style="color: #000000;"></i></a>
+                                <a class="btnEdit" data-target="#bukaModal<%= row.no_cabang %>"><i
+                                        class="fa-regular fa-pen-to-square fa-lg" style="color: #000000;"></i></a>
                                 <div class="overlay" id="#bukaModal<%= row.no_cabang %>">
                                     <div class="popup">
                                         <div>
@@ -147,24 +149,27 @@
                                                     <div class="input-form">
                                                         <i class="fa-solid fa-address-card" style="color: #000000;"></i>
                                                         <select name="editKota" id="dropdownTambahKota">
-                                                            <option selected><%= row.nama_kota %></option>
-                                                            <% let current= row.nama_kota %>
+                                                            <option selected>
+                                                                <%= row.nama_kota %>
+                                                            </option>
+                                                            <% let current=row.nama_kota %>
 
-                                                            
-                                                            <% for(let row of dataKota){ %>
-                                                                <% if (row.nama_kota != current){ %>
-                                                                    <option value="<%= row.nama_kota %>">
-                                                                        <%= row.nama_kota %>
-                                                                    </option>
-                                                                <% } %>
-                                                                
-                                                            <% }%>
+
+                                                                <% for(let row of dataKota){ %>
+                                                                    <% if (row.nama_kota !=current){ %>
+                                                                        <option value="<%= row.nama_kota %>">
+                                                                            <%= row.nama_kota %>
+                                                                        </option>
+                                                                        <% } %>
+
+                                                                            <% }%>
                                                         </select>
                                                     </div>
 
                                                     <div class="footer-modal">
                                                         <button class="btn-edit">Simpan</button>
-                                                        <button type="button" class="btn-batal close" data-target="#bukaModal<%= row.no_cabang %>">Batal</button>
+                                                        <button type="button" class="btn-batal close"
+                                                            data-target="#bukaModal<%= row.no_cabang %>">Batal</button>
                                                     </div>
                                                 </form>
 
