@@ -380,6 +380,18 @@ const getLaporan = conn => {
   });
 };
 
+const getHistoriRes = (conn, username) => {
+  return new Promise((resolve, reject) => {
+      conn.query(`SELECT * FROM reservasi JOIN cabang ON cabang.no_cabang = reservasi.no_cabang JOIN layanan ON layanan.id_layanan = reservasi.id_layanan WHERE reservasi.username = '${username}'`, (err, result) => {
+          if(err){
+              reject(err);
+          } else{
+              resolve(result);
+          }
+      });
+  });
+};
+
 app.get("/", async (req, res) => {
   let data = "";
   req.session.isAuthAdmin = false;
@@ -561,8 +573,12 @@ app.get("/reservasi", isAuthMember, async (req, res) => {
 app.get("/historiReservasi", isAuthMember, async (req, res) => {
   const conn = await dbConnect();
   let dataSession = req.session.data;
+  let username = req.session.username;
+  console.log(username)
+  let dataHistori = await getHistoriRes(conn, username);
+  console.log(dataHistori)
   conn.release();
-  res.render("historiReservasi", { dataSession });
+  res.render("historiReservasi", { dataSession, dataHistori });
 });
 
 app.get('/logout', async (req, res) => {
@@ -603,6 +619,7 @@ app.post('/login', async (req, res) => {
       res.redirect('/homeAdmin');
     } else if (dataMember.length > 0) {
       req.session.data = dataMember[0].nama;
+      req.session.username = dataMember[0].username;
       // console.log(dataMember[0].status)
 
       // console.log(req.session.data);

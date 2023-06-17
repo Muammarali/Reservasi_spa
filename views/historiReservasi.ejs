@@ -1,33 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>history</title>
-    <link rel="stylesheet" href="/css/historiReservasi.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-  </head>
-  <body>
-    <%- include('sidebarMember.ejs')%>
-    <main>
-      <header>
-        <div class="profile">
-          <%- include('profile') %>
-      </div>
-      </header>
-      <div class="wrapper-histori">
-        <div class="logo-balihalus">
-          <img src="/images/balihalus.png" />
-        </div>
-        <div class="wrapper-tableHistori"></div>
-      </div>
-    </main>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>history</title>
+  <link rel="stylesheet" href="/css/historiReservasi.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <div class="sidebar">
+    <%- include('sidebarMember') %>
+  </div>
+
+  <div class="profile">
+    <%- include('profile') %>
+  </div>
+
+  <div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th>No Reservasi</th>
+                <th>Tanggal</th>
+                <th>Waktu Kedatangan</th>
+                <th>Nama Cabang</th>
+                <th>Layanan</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <% for(let row of dataHistori) { %>
+                <tr>
+                    <td><%= row.no_reservasi %></td>
+                    <td><%= row.tanggal.toLocaleDateString() %></td>
+                    <td>Pukul <%= row.waktu_kedatangan %></td>
+                    <td><%= row.nama %></td>
+                    <td><%= row.id_layanan %></td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+</body>
+
 </html>
