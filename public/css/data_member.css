@@ -6,7 +6,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;

@@ -21,7 +21,8 @@ const storage = multer.diskStorage({
     cb(null, file.fieldname + '-' + uniqueSuffix + '.jpg');
   }
 });
-const upload = multer({ storage: storage })
+
+const upload = multer({ storage: storage });
 
 const PORT = 8080;
 const app = express();
@@ -487,6 +488,7 @@ app.get('/laporan', isAuthAdmin, async (req, res) => {
   const conn = await dbConnect();
   let dataSession = req.session.data;
   const dataLaporan = await getLaporan(conn);
+  const dataCabang = await getDataCabang(conn);
 
   let dateObj = {
     januari: 0,
@@ -539,7 +541,7 @@ app.get('/laporan', isAuthAdmin, async (req, res) => {
   }
 
   conn.release();
-  res.render('laporan', {dataSession, dateObj})
+  res.render('laporan', {dataSession, dateObj, dataCabang})
 });
 
 app.get("/cabang", isAuthMember, async (req, res) => {

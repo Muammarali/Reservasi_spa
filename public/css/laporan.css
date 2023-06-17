@@ -3,10 +3,10 @@ body {
     display: flex;
     height: 100vh;
     width: 100%;
-    display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -17,12 +17,11 @@ body {
 }
 .container {
     display: flex;
-    align-items: center;
     flex-direction: column;
     height: 100vh;
     color: black;
-    margin-left: 222px;
-    justify-content: center;
+    margin: 280px 0 0 222px;
+
 }
 
 .container .logo{
@@ -34,9 +33,62 @@ body {
     margin-left: 650px;
 }
 
+.container .grafik{
+    display: block;
+    background-color: white;
+    border-radius: 8px;
+    width: 1080px;
+    height: 680px;
+    justify-content: center;
+}
+
+.container .grafik .title{
+    margin: 0;
+}
+.container .grafik .title p{
+    margin: 36px 0 20px 40px;
+    justify-content: center;
+}
+
 .container #myChart{
-    width: 960px;
-    height: 720px;
+    margin: 20px 0 0 54px;
+    max-width: 960px;
+    max-height: 600px;
+}
+
+.container .head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    margin: 0 0 20px 0;
+}
+
+.container .download-pdf #download{
+    border: none;
+    margin: 0;
+    height: 40px;
+    width: 160px;
+    background-color: #543321;  
+    color: #fff;
+    font-size: medium;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.container .download-pdf #download:hover{
+    background-color: #3b2418;
+}
+
+.container .filterDate select{
+    border: none;
+    padding: 0 0 0 8px;
+    justify-content: center;
+    align-items: center;
+    height: 36px;
+    width: 180px;
+    border-radius: 10px;
 }
 
 .pagination{

@@ -11,6 +11,7 @@
     <script src="https://kit.fontawesome.com/985f81e0fc.js" crossorigin="anonymous"></script>
     <script type="module" src="js/laporan.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 </head>
 
@@ -25,7 +26,30 @@
 
     <div class="container">
 
-        <div>
+        <div class="head">
+            <div class="filterDate">
+                <select name="dropdownCabang" id="dropdownCabang">
+                    <option selected>Semua</option>
+                    <% for(let row of dataCabang){ %>
+                        <option value="<%= row.nama %>">
+                            <%= row.nama %>
+                        </option>
+                    <% }%>
+                </select>
+            </div>
+
+            <div class="download-pdf">
+                <button id="download"><i class="fa-solid fa-file-pdf" style="color: #ffffff; padding-right: 8px;"></i>Download PDF</button>
+            </div>
+        </div>
+
+        <div class="grafik">
+            <div class="title">
+                <p>Periode : 1 Januari 2023 s/d 31 Desember 2023
+                    <br>
+                    Cabang : Semua
+                </p>
+            </div>
             <canvas id="myChart"></canvas>
           </div>
     </div>
@@ -33,8 +57,8 @@
     <script>
         const temp = '<%- JSON.stringify(dateObj) %>';
         const row = JSON.parse(temp);
-
         const ctx = document.getElementById('myChart');
+        const btnDownload = document.querySelector('#download');
 
         new Chart(ctx, {
             type: 'bar',
@@ -42,37 +66,60 @@
                 labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September',
                     'Oktober', 'November', 'Desember'],
                 datasets: [{
+                    axis: 'x',
                     label: 'Total transaksi',
                     data: [row.januari, row.februari, row.maret, row.april, row.mei, row.juni, row.juli, row.agustus, row.september, row.oktober, row.november, row.desember],
                     borderWidth: 1,
-                    borderColor: 'brown',
-                    backgroundColor: 'white'
+                    backgroundColor: '#543321'
                 }]
             },
             options: {
                 scales: {
                     y: {
                         ticks: {
-                            color: "white",
+                            color: 'black',
                             font: {
                                 size: 18,
                             },
                             stepSize: 1,
                             beginAtZero: true
+                        },
+                        suggestedMin: 0,
+                        grid: {
+                            drawOnChartArea: false
                         }
                     },
                     x: {
                         ticks: {
-                            color: "white",
+                            color: 'black',
                             font: {
                                 size: 14
                             },
                             stepSize: 1,
                             beginAtZero: true
+                        },
+                        grid: {
+                            drawOnChartArea: false
                         }
                     }
                 }
             }
+        });
+        
+        btnDownload.addEventListener('click', () => {
+            let element = document.querySelector('.grafik');
+            let date = Date.now();
+            let today = new Date(date);
+
+            let opt = {
+                margin: [14, 14],
+                filename: 'laporan-' + today.toLocaleDateString() + '.pdf',
+                image: { type: 'png', quality: 1 },
+                html2canvas: { dpi: 400, letterRendering: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+            };
+
+            html2pdf().set(opt).from(element).save();
         });
     </script>
 
