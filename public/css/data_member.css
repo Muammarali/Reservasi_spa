@@ -64,7 +64,7 @@ body {
 }
 
 .container table tbody tr td:last-child{
-    text-align: center;
+    text-align: left;
 }
 
 .container table tr:nth-child(even){

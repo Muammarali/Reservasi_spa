@@ -340,6 +340,19 @@ const tambahDataScrub = (conn, scrub) => {
   });
 };
 
+export const getLaporan = conn => {
+  return new Promise((resolve, reject) => {
+      conn.query(`SELECT * FROM reservasi`, (err, result) => {
+          if(err){
+              reject(err);
+          } else{
+              resolve(result);
+          }
+      });
+  });
+};
+
+
 app.get("/", async (req, res) => {
   let data = "";
   req.session.isAuthAdmin = false;
@@ -447,25 +460,80 @@ app.get('/spaScrub', isAuthAdmin, async (req, res) => {
 app.get('/laporan', isAuthAdmin, async (req, res) => {
   const conn = await dbConnect();
   let dataSession = req.session.data;
+  const dataLaporan = await getLaporan(conn);
+
+  let dateObj = {
+    januari: 0,
+    februari: 0,
+    maret: 0,
+    april: 0,
+    mei: 0,
+    juni: 0,
+    juli: 0,
+    agustus: 0,
+    september: 0,
+    oktober: 0,
+    november: 0,
+    desember: 0
+  };
+  
+  let i = 0;
+  for (let row of dataLaporan){
+    let tanggal = dataLaporan[i].tanggal;
+    let month = new Date(tanggal).getMonth() + 1;
+
+    if (month == 1){
+      dateObj.januari++;
+    } else if (month == 2){
+      dateObj.februari++;
+    } else if (month == 3){
+      dateObj.maret++;
+    } else if (month == 4){
+      dateObj.april++;
+    } else if (month == 5){
+      dateObj.mei++;
+    } else if (month == 6){
+      dateObj.juni++;
+    } else if (month == 7){
+      dateObj.juli++;
+    } else if (month == 8){
+      dateObj.agustus++;
+    } else if (month == 9){
+      dateObj.september++;
+    } else if (month == 10){
+      dateObj.oktober++;
+    } else if (month == 11){
+      dateObj.november++;
+    } else if (month == 12){
+      dateObj.desember++;
+    }
+    // console.log(month)
+    // console.log(dateObj)
+    i++;
+  }
+
   conn.release();
-  res.render('laporan', {dataSession})
+  res.render('laporan', {dataSession, dateObj})
 });
 
 app.get("/cabang", isAuthMember, async (req, res) => {
   const conn = await dbConnect();
   let dataSession = req.session.data;
+  conn.release();
   res.render("cabang", { dataSession });
 });
 
 app.get("/reservasi", isAuthMember, async (req, res) => {
   const conn = await dbConnect();
   let dataSession = req.session.data;
+  conn.release();
   res.render("reservasi", { dataSession });
 });
 
 app.get("/historiReservasi", isAuthMember, async (req, res) => {
   const conn = await dbConnect();
   let dataSession = req.session.data;
+  conn.release();
   res.render("historiReservasi", { dataSession });
 });
 
@@ -598,7 +666,7 @@ app.post('/tambah/:data', async (req, res) => {
     res.redirect('/memberBaru')
 });
 
-app.get('/tolak/:data', async (req, res) => {
+app.post('/tolak/:data', async (req, res) => {
     const conn = await dbConnect();
     const {data} = req.params
     const updateData = await tolakMember(conn, data)

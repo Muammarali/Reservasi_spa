@@ -7,15 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Member</title>
     <link rel="icon" href="images/logo-web.png">
-    <link rel="stylesheet" href="css/spa_page.css">
+    <link rel="stylesheet" href="css/laporan.css">
     <script src="https://kit.fontawesome.com/985f81e0fc.js" crossorigin="anonymous"></script>
-    <!-- <script src="js/bodyMassage.js" defer></script> -->
-    <script src="js/spa.js" defer></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
-        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous"></script>
+    <script type="module" src="js/laporan.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body>
@@ -26,4 +22,58 @@
     <div class="profile">
         <%- include('profile') %>
     </div>
+
+    <div class="container">
+
+        <div>
+            <canvas id="myChart"></canvas>
+          </div>
+    </div>
+
+    <script>
+        const temp = '<%- JSON.stringify(dateObj) %>';
+        const row = JSON.parse(temp);
+
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September',
+                    'Oktober', 'November', 'Desember'],
+                datasets: [{
+                    label: 'Total transaksi',
+                    data: [row.januari, row.februari, row.maret, row.april, row.mei, row.juni, row.juli, row.agustus, row.september, row.oktober, row.november, row.desember],
+                    borderWidth: 1,
+                    borderColor: 'brown',
+                    backgroundColor: 'white'
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        ticks: {
+                            color: "white",
+                            font: {
+                                size: 18,
+                            },
+                            stepSize: 1,
+                            beginAtZero: true
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: "white",
+                            font: {
+                                size: 14
+                            },
+                            stepSize: 1,
+                            beginAtZero: true
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
 </body>
