@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 16, 2023 at 02:02 PM
+-- Generation Time: Jun 17, 2023 at 09:35 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -51,18 +51,19 @@ CREATE TABLE `cabang` (
   `nama` varchar(32) NOT NULL,
   `alamat` varchar(64) NOT NULL,
   `id_kota` int(11) NOT NULL,
-  `username` varchar(50) NOT NULL
+  `username` varchar(50) NOT NULL,
+  `gambar` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `cabang`
 --
 
-INSERT INTO `cabang` (`no_cabang`, `nama`, `alamat`, `id_kota`, `username`) VALUES
-(1, 'BaliHalus Riau Bandung', 'Jalan Riau No. 10', 1, 'admin'),
-(2, 'BaliHalus Denpasar Bali', 'Jalan Ngurah Rai No. 27', 2, 'admin'),
-(5, 'BaliHalus Medan', 'Jalan Medan No. 7', 3, 'admin'),
-(7, 'BaliHalus Dago', 'Jalan Ganesha No. 7', 4, 'admin');
+INSERT INTO `cabang` (`no_cabang`, `nama`, `alamat`, `id_kota`, `username`, `gambar`) VALUES
+(2, 'BaliHalus Denpasar Bali', 'Jalan Ngurah Rai No. 27', 2, 'admin', ''),
+(5, 'BaliHalus Medan', 'Jalan Medan No. 7', 3, 'admin', ''),
+(7, 'BaliHalus Dago', 'Jalan Ganesha No. 7', 4, 'admin', ''),
+(10, 'Bali Halus Uber', 'jalan AH Nasution', 1, 'admin', 0x67616d626172436162616e672d313638363938343931323639372d363636323133383334);
 
 -- --------------------------------------------------------
 
@@ -209,7 +210,7 @@ ALTER TABLE `reservasi`
 -- AUTO_INCREMENT for table `cabang`
 --
 ALTER TABLE `cabang`
-  MODIFY `no_cabang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `no_cabang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `kota`

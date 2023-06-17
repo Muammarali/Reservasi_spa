@@ -16,6 +16,7 @@ body {
     background-image: url('../images/bg-home.jpg');
 
 }
+
 .container {
     display: flex;
     justify-content: center;
@@ -26,12 +27,12 @@ body {
     margin-bottom: 100px;
 }
 
-.container .btn-tambah{
+.container .btn-tambah {
     border: none;
     margin-bottom: 20px;
     height: 40px;
     width: 100px;
-    background-color: #543321;  
+    background-color: #543321;
     color: #fff;
     font-size: medium;
     border-radius: 10px;
@@ -39,20 +40,22 @@ body {
     transition: all 0.2s ease;
 }
 
-.container .filter-kota{
+.container .filter-kota {
     display: flex;
     margin: 0 0 20px 4px;
     color: white;
 }
 
-.container .filter-kota p{
+.container .filter-kota p {
     padding: 0 10px 0 0;
+    color: #fff;
 }
+
 .container .filter-kota i{
     padding: 16px 6px 0 0;
 }
 
-.container .filter-kota #dropdownKota{
+.container .filter-kota #dropdownKota {
     padding: 0 0 0 8px;
     justify-content: center;
     align-items: center;
@@ -61,16 +64,15 @@ body {
     border-radius: 10px;
 }
 
-.filter-kota #dropdownKota{
+.filter-kota #dropdownKota {
     margin-top: 8px;
-
 }
 
-.container .btn-tambah:hover{
+.container .btn-tambah:hover {
     background-color: #3b2418;
 }
 
-.container .logo{
+.container .logo {
     background-image: url('../images/BaliHalus-putih.png');
     background-repeat: no-repeat;
     background-size: contain;
@@ -79,31 +81,31 @@ body {
     margin-left: 650px;
 }
 
-.container table{
+.container table {
     border-collapse: collapse;
     text-align: left;
     overflow: hidden;
     box-shadow: 0 5px 10px black;
     background-color: white;
-    border-radius:8px;
+    border-radius: 8px;
     max-width: 1080px;
     min-width: 1080px;
     min-height: 99px;
 }
 
-.container table thead{
+.container table thead {
     box-shadow: 0 5px 15px grey;
     background-color: #543321;
     color: white;
 }
 
-.container table thead th{
+.container table thead th {
     padding: 15px 31px;
     font-weight: 500;
-    
+
 }
 
-.container table tr td{
+.container table tr td {
     padding: 1rem 2rem;
 }
 
@@ -111,15 +113,15 @@ body {
     text-align: left;
 }
 
-.container table tr:nth-child(even){
+.container table tr:nth-child(even) {
     background-color: rgb(245, 245, 245);
 }
 
-.container table tbody tr td a i{
+.container table tbody tr td a i {
     cursor: pointer;
 }
 
-.container table tbody tr td span{
+.container table tbody tr td span {
     float: right;
     cursor: pointer;
 }
@@ -159,12 +161,12 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     width: 400px;
-    height: 360px;
+    height: 430px;
     max-width: 400px;
     overflow: hidden;
 }
 
-.edit{
+.edit {
     text-align: center;
 }
 
@@ -175,14 +177,16 @@ body {
 }
 
 .modal-open {
-  overflow: hidden; }
+    overflow: hidden;
+}
 
-.form p{
+.form p {
     margin: 0;
     padding: 10px 4px 8px 4px;
     text-align: left;
 }
-.form .input-form{
+
+.form .input-form {
     background: #ededed;
     height: 40px;
     display: flex;
@@ -191,7 +195,7 @@ body {
     padding: 0 0 0 10px;
 }
 
-.form .input-form input{
+.form .input-form input {
     height: 100%;
     background: none;
     border: none;
@@ -199,21 +203,21 @@ body {
     width: 100%;
 }
 
-.form .input-form i{
+.form .input-form i {
     padding: 2px 10px 2px 2px;
 }
 
-.footer-modal{
+.footer-modal {
     display: flex;
     justify-content: space-between;
 }
 
-.form .btn-edit{
+.form .btn-edit {
     border: none;
     margin: 24px 0 0 0;
     height: 40px;
     width: 48%;
-    background-color: #543321;  
+    background-color: #543321;
     color: #fff;
     font-size: medium;
     border-radius: 10px;
@@ -221,16 +225,16 @@ body {
     transition: all 0.2s ease;
 }
 
-.form .btn-edit:hover{
+.form .btn-edit:hover {
     background-color: #3b2418;
 }
 
-.form .btn-batal{
+.form .btn-batal {
     border: none;
     margin: 24px 0 0 0;
     height: 40px;
     width: 48%;
-    background-color: lightgray;  
+    background-color: lightgray;
     color: black;
     font-size: medium;
     border-radius: 10px;
@@ -238,13 +242,17 @@ body {
     transition: all 0.2s ease;
 }
 
-.form .btn-batal:hover{
+.form .btn-batal:hover {
     background-color: rgb(170, 170, 170);
 }
 
-select#dropdownTambahKota{
+select#dropdownTambahKota {
     border: none;
     background-color: transparent;
     width: 90%;
     height: 70%;
+}
+
+input[name="gambarCabang"] {
+    margin-top: 20px;
 }
