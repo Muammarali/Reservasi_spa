@@ -1,115 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>reservasi</title>
-    <link rel="stylesheet" href="/css/reservasi.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-  </head>
-  <body>
-    <%- include('sidebarMember.ejs')%>
-    <main>
-      <header>
-        <div class="profile">
-          <%- include('profile') %>
-      </div>
-      </header>
-      <div class="content">
-        <div class="logo">
-          <img src="/images/balihalus.png" />
-        </div>
-        <div class="wrapper">
-          <div class="wrapper-alamat-waktu">
-            <div class="card">
-              <div class="card-alamat">
-                <img src="/images/gambarCabang.jpg" alt="gambar cabang" />
-                <div class="card-alamat-text">
-                  <h4>Nama Cabang</h4>
-                  <p>alamat</p>
-                </div>
-              </div>
-            </div>
-            <div class="content-waktu">
-              <div class="tanggal">
-                <label for="tanggal">Tanggal :<br /></label>
-                <input type="date" id="tanggal" name="tanggal" />
-              </div>
-              <div class="jam">
-                <label for="jam">Jam :<br /></label>
-                <input type="time" id="jam" name="jam" />
-              </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reservasi</title>
+  <link rel="icon" href="images/logo-web.png">
+  <link rel="stylesheet" href="css/reservasi.css">
+
+</head>
+
+<body>
+  <div class="sidebar">
+    <%- include('sidebarMember') %>
+  </div>
+
+  <div class="profile">
+    <%- include('profile') %>
+  </div>
+
+  <div class="container">
+    <div class="title">
+      <% for(let row of dataPilihCabang) { %>
+        <p>Cabang</p>
+        <p>
+          <%= row.nama %>
+        </p>
+        <% } %>
+    </div>
+    <% for(let row of dataPilihCabang) { %>
+      <form action="/buatReservasiSpa/<%= row.nama %>" method="POST">
+        <div class="dateBox">
+          <div class="tanggal">
+            <p>Tanggal :</p>
+            <div class="box">
+              <input type="date" id="tanggal" name="tanggal" required />
             </div>
           </div>
-  
-          <div class="layanan">
-            <h4 class="judul">Pilih Layanan</h4>
-            <div class="wrapper-layanan-pilihan">
-              <div class="layanan-pilihan">
-                <div id="card-spa" class="card">
-                  <h4>Spa<br>Rp 200.000</h4>
-                  
-                  <div class="form-group">
-                    <label for="Masker">Masker :<br /></label>
-                    <select
-                      class="form-select"
-                      aria-label="Default select example"
-                    >
-                      <option selected>Silahkan memilih pilihan</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="Scrub">Scrub :<br /></label>
-                    <select
-                      class="form-select"
-                      aria-label="Default select example"
-                    >
-                      <option selected>Silahkan memilih pilihan</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </select>
-                  </div>
-                  <button class="submit">Pilih</button>
-                </div>
-                <div id="card-bodyMassage" class="card">
-                  <h4>Body Massage<br>Rp 150.000</h4>
-                  
-                  <div class="form-group">
-                    <label for="Oil">Oil :<br /></label>
-                    <select
-                      class="form-select"
-                      aria-label="Default select example"
-                    >
-                      <option selected>Silahkan memilih pilihan</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </select>
-                  </div>
-                  <button class="submit">Pilih</button>
-                </div>
-                <div id="card-refleksi" class="card">
-                  <h4>Refleksi<br>Rp 100.000</h4>
-                  
-                  <button class="submit">Pilih</button>
+
+          <div class="jam">
+            <p>Jam :</p>
+            <div class="box">
+              <input type="time" id="jam" name="jam" min="09:00" max="22:00" step="00:10" required />
+            </div>
+          </div>
+        </div>
+
+        <div class="layanan">
+          <p class="title">Pilih Layanan</p>
+          <div class="layananBox">
+            <div class="box">
+              <p class="title">Spa</p>
+              <div class="masker">
+                <p>Masker</p>
+                <select name="dropdownMasker" id="dropdownMasker">
+                  <option selected disabled value="">Pilih masker</option>
+                  <% for (let dataM of dataMasker){ %>
+                    <option value="<%= dataM.nama_masker %>">
+                      <%= dataM.nama_masker %>
+                    </option>
+                    <% }%>
+                </select>
+              </div>
+              <div class="scrub">
+                <p>Scrub</p>
+                <select name="dropdownScrub" id="dropdownScrub">
+                  <option selected disabled value="">Pilih scrub</option>
+                  <% for (let dataS of dataScrub){ %>
+                    <option value="<%= dataS.nama_scrub %>">
+                      <%= dataS.nama_scrub %>
+                    </option>
+                    <% }%>
+                </select>
+              </div>
+            </div>
+            <div class="box">
+              <p class="title">Body Massage</p>
+              <div class="body_massage">
+                <p>Oil</p>
+                <select name="dropdownOil" id="dropdownOil">
+                  <option selected disabled value="">Pilih oil</option>
+                  <% for (let dataO of dataOil){ %>
+                    <option value="<%= dataO.oil %>">
+                      <%= dataO.oil %>
+                    </option>
+                    <% }%>
+                </select>
+              </div>
+            </div>
+            <div class="box">
+              <p class="title">Refleksi</p>
+              <div class="content">
+                <p>Refleksi adalah metode terapi yang menggunakan tekanan pada titik-titik tertentu pada kaki, tangan dan telinga untuk mempengaruhi organ dan bagian tubuh lainnya. </p>
+                <div class="checkbox">
+                  <input type="checkbox" name="refleksi">
+                  <label for="refleksi">Pilih refleksi</label>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        
-      </div>
-    </main>
-  </body>
+
+        <div class="btn-reservasi">
+          <button>Reservasi Sekarang</button>
+        </div>
+      </form>
+    <% } %>
+  </div>
+</body>
+
 </html>

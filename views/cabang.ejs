@@ -1,50 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cabang</title>
-    <link rel="stylesheet" href="/css/cabang.css" />
 
-  </head>
-  <body>
-    <%- include('sidebarMember')%>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cabang</title>
+  <link rel="icon" href="images/logo-web.png">
+  <link rel="stylesheet" href="/css/cabang.css" />
+
+</head>
+
+<body>
+  <%- include('sidebarMember')%>
     <main>
       <header>
         <div class="profile">
-            <%- include('profile') %>
+          <%- include('profile') %>
         </div>
       </header>
-      <div class="content">
+      <div class="container">
         <h3>
           Selamat datang <%= dataSession %> <br />
-          pilih cabang terlebih dahulu
+            pilih cabang terlebih dahulu
         </h3>
-        <div class="form-group">
-          <label for="wilayah">Kota/Kabupaten</label>
-          <select class="form-select" aria-label="Default select example">
-            <option selected>Open this select menu</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+        <div class="filter-kota">
+          <i class="fa-solid fa-filter" style="color: #ffffff;"></i>
+          <p>Kota :</p>
+          <select name="dropdownKota" id="dropdownKota">
+            <option selected>Semua</option>
+            <% let j=1%>
+              <% for(let row of dataKota){ %>
+                <option value="<%= row.nama_kota %>">
+                  <%= row.nama_kota %>
+                </option>
+                <% }%>
           </select>
         </div>
-        <div class="pilihan-wilayah">
-          <div class="card">
-            <h4>Nama Cabang</h4>
-            <p>alamat</p>
-          </div>
-          <div class="card">
-            <h4>Nama Cabang</h4>
-            <p>alamat</p>
-          </div>
-          <div class="card">
-            <h4>Nama Cabang</h4>
-            <p>alamat</p>
-          </div>
-        </div>
+
+        <table>
+          <thead>
+              <tr>
+                  <th>No</th>
+                  <th>Nama</th>
+                  <th>Alamat</th>
+                  <th>Kota</th>
+                  <th>Aksi</th>
+              </tr>
+          </thead>
+
+          <tbody>
+              <% let i=1 %>
+              <% for(let row of dataCabang) { %>
+                  <tr>
+                      <td><%= i %></td>
+                      <td><%= row.nama %></td>
+                      <td><%= row.alamat %></td>
+                      <td><%= row.nama_kota %></td>
+                      <td>
+                        <form action="/reservasi/<%= row.no_cabang %>" method="POST">
+                          <button>Pilih</button>
+                        </form>
+                      </td>
+                  </tr>
+                  <% i++ %>
+              <% } %>
+          </tbody>
+      </table>
+
       </div>
     </main>
-  </body>
+</body>
+
 </html>

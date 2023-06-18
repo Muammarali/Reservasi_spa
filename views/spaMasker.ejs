@@ -41,6 +41,12 @@
                                 <input type="text" name="namaMasker" placeholder="Masukkan nama masker" required>
                             </div>
 
+                            <p>Harga</p>
+                            <div class="input-form">
+                                <i class="fa-solid fa-droplet" style="color: #000000;"></i>
+                                <input type="text" name="hargaMasker" placeholder="Masukkan harga masker" required>
+                            </div>
+
                             <div class="footer-modal">
                                 <button class="btn-edit">Simpan</button>
                                 <button type="button" class="btn-batal close" data-target="#tambahMasker" >Batal</button>
@@ -59,6 +65,7 @@
                 <tr>
                     <th>No</th>
                     <th>Nama</th>
+                    <th>Harga</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -68,26 +75,33 @@
                 <% for(let row of dataSpaMasker) { %>
                     <tr>
                         <td><%= i %></td>
-                        <td><%= row.masker %></td>
+                        <td><%= row.nama_masker %></td>
+                        <td><%= row.harga %></td>
                         <td>
-                            <a class="btnEdit" data-target="#bukaModal<%= row.id_layanan %>"><i class="fa-regular fa-pen-to-square fa-lg" style="color: #000000;"></i></a>
-                            <div class="overlay" id="#bukaModal<%= row.id_layanan %>">
+                            <a class="btnEdit" data-target="#bukaModal<%= row.id_spaM %>"><i class="fa-regular fa-pen-to-square fa-lg" style="color: #000000;"></i></a>
+                            <div class="overlay" id="#bukaModal<%= row.id_spaM %>">
                                 <div class="popup">
                                     <div>
                                         <div class="edit modal-header">
                                             <p>Edit Data Masker</p>
                                         </div>
                                         <div class="form">
-                                            <form method="post" action="/editMasker/<%= row.id_layanan %>">
+                                            <form method="post" action="/editMasker/<%= row.id_spaM %>">
                                                 <p>Masker</p>
                                                 <div class="input-form">
-                                                    <i class="fa-solid fa-mask" style="color: #000000;"></i>
-                                                    <input type="text" name="masker" value="<%= row.masker %>" required>
+                                                    <i class="fa-solid fa-droplet" style="color: #000000;"></i>
+                                                    <input type="text" name="masker" value="<%= row.nama_masker %>" required>
+                                                </div>
+
+                                                <p>Harga</p>
+                                                <div class="input-form">
+                                                    <i class="fa-solid fa-droplet" style="color: #000000;"></i>
+                                                    <input type="text" name="harga" value="<%= row.harga %>" required>
                                                 </div>
                                 
                                                 <div class="footer-modal">
                                                     <button class="btn-edit">Simpan</button>
-                                                    <button type="button" class="btn-batal close" data-target="#bukaModal<%= row.id_layanan %>">Batal</button>
+                                                    <button type="button" class="btn-batal close" data-target="#bukaModal<%= row.id_spaM %>">Batal</button>
                                                 </div>
                                             </form>
                                         </div>

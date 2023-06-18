@@ -6,7 +6,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -162,6 +163,17 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     width: 400px;
     height: 430px;
+    max-width: 400px;
+    overflow: hidden;
+}
+
+.popupEdit {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    width: 400px;
+    height: 336px;
     max-width: 400px;
     overflow: hidden;
 }

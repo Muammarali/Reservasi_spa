@@ -1,25 +1,206 @@
-*,
-html {
-  margin: 0;
-  padding: 0;
-  border: none;
-  font-family: "Poppins", sans-serif;
-}
 body {
+  font-family: Arial, sans-serif;
   display: flex;
-  width: 100vw;
-  min-height: 100vh;
-}
-aside {
-  width: 25%;
-  max-height: 100%;
-
+  height: 100%;
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
-  padding: 50px 0px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: rgba(0, 0, 0, 0.2);
+  background-blend-mode: darken;
+  background-image: url('../images/bg-home.jpg');
 }
+
+.container {
+  display: flex;
+  align-items: left;
+  flex-direction: column;
+  width: 1080px;
+  height: 720px;
+  color: black;
+  margin: 200px 0 100px 222px;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.container .title p:first-child{
+  margin: 20px 0 4px 21px;
+  text-align: left;
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.container .title p:last-child{
+  margin: 0 0 20px 20px;
+  text-align: left;
+  color: black;
+  font-weight: bold;
+  font-size: 40px;
+}
+
+.container .title p{
+  margin: 20px 0 20px 0;
+}
+
+.container .dateBox{
+  margin: 0 0 20px 24px;
+  display: flex;
+}
+
+.container .dateBox p{
+  margin: 0 0 8px 4px;
+}
+
+.container .dateBox .box{
+  background-color: #ededed;
+  border-radius: 8px;
+  width: 160px;
+  height: 40px;
+  text-align: center;
+}
+
+.container .dateBox .tanggal #tanggal{
+  margin: 4px 0 0 0;
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  width: 80%;
+  height: 80%;
+}
+
+.container .dateBox .tanggal{
+  margin: 0 20px 0 0;
+}
+
+.container .dateBox .jam #jam{
+  margin: 4px 0 0 0;
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  width: 80%;
+  height: 80%;
+}
+
+.container .layanan p{
+  justify-content: center;
+  text-align: center;
+}
+
+.container .layanan .checkbox{
+  margin: 80px 0 0 0;
+  justify-content: center;
+  text-align: center;
+}
+
+.container .layanan .layananBox{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.container .layanan .layananBox .box{
+  background-color: #ededed;
+  border-radius: 8px;
+  width: 300px;
+  height: 280px;
+}
+
+.container .layanan .title{
+  font-weight: bold;
+}
+
+.container .layanan .layananBox .box .masker p{
+  margin: 0 0 6px 16px;
+  width: fit-content;
+  justify-content: left;
+}
+
+.container .layanan .layananBox .box .scrub p{
+  margin: 20px 0 6px 16px;
+  width: fit-content;
+  justify-content: left;
+}
+
+.container .layanan .layananBox .box .body_massage p{
+  margin: 20px 0 6px 16px;
+  width: fit-content;
+  justify-content: left;
+}
+
+.container .layanan .layananBox .box .content .checkbox{
+  justify-content: center;
+}
+
+.container .layanan .layananBox .box .content p{
+  margin: 0;
+}
+
+.container .layanan .layananBox .box select{
+  margin: 8px 0 0 10px;
+}
+
+
+.container .masker #dropdownMasker {
+  padding: 0 0 0 8px;
+  background-color: white;
+  border: none;
+  height: 36px;
+  width: 93%;
+  border-radius: 10px;
+}
+
+.container .scrub #dropdownScrub {
+  padding: 0 0 0 8px;
+  background-color: white;
+  border: none;
+  height: 36px;
+  width: 93%;
+  border-radius: 10px;
+}
+
+.container .body_massage #dropdownOil {
+  padding: 0 0 0 8px;
+  background-color: white;
+  border: none;
+  height: 36px;
+  width: 93%;
+  border-radius: 10px;
+}
+
+.container .btn-reservasi{
+  text-align: center;
+}
+
+.container .btn-reservasi button{
+  margin: 40px 0 0 0;
+  text-align: center;
+  border: none;
+  border-radius: 10px;
+  background-color: #543321;
+  color: white;
+  width: 160px;
+  height: 40px;
+}
+
+.pagination{
+  margin: 20px 0 0 0;
+  border-radius: 20px;
+  background-color: white;
+  width: auto;
+  height: auto;
+}
+
+.pagination a{
+  text-decoration: none;
+  margin: 0 10px 0 10px;
+}
+
 .sidebar {
   width: 200px;
   background-color: #f2f2f2;
@@ -28,219 +209,101 @@ aside {
   left: 0;
   top: 0;
 }
-main {
-  width: 100%;
-  height: 100vh;
-  overflow-y: auto;
-  background-color: rgb(229, 228, 228);
-  background-image: url("../images/bg-home.jpg");
-  background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    margin-left: 200px;
-}
-header {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-}
-header .user-info {
-  display: flex;
-  justify-content: center;
-  margin: 10px;
-  width: 10vw;
-  color: white;
-}
-.profile i {
-  margin-top: -24px;
-}
-/* content */
-.card{
-  box-shadow: 0 0 10px rgba(138, 82, 50, 0.596);
-}
 
-.content {
-  display: flex;
-  flex-direction: column;
-  
-
-}
-.content .logo img{
-
-  filter: brightness(0) invert(1);
-  width: 300px;
-  height: auto;
-  margin-left: 42.5%;
-  margin-top: 2%;
-  margin-bottom: 2%;
-
-}
-.wrapper-alamat-waktu {
-  display: flex;
-  padding-bottom: 1em;
-  height: 36vh;
-  align-items: center;
-  justify-content: space-between;
-  margin-left: 16vw;
-  margin-right: 15vw;
-  
-}
-.wrapper-alamat-waktu .card {
-  width: 20%;
-  height: 90%;
-  background-color: #382115;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  border-radius: 10px;
-}
-.wrapper-alamat-waktu .card-alamat {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-
-}
-.wrapper-alamat-waktu .card-alamat img{
-  margin-bottom: 5%;
-  width: 100%;
-  height: 10vw;
-}
-.card-alamat-text{
-  text-align: center;
-
-  width: 100%;
-  color: white;
-
-  font-size: smaller;
-  margin-bottom: 15px;
-}
-.content-waktu {
-  display: flex;
-  flex-direction: column;
-  margin-top: 1em;
-  height: fit-content;
-
-}
-.content-waktu .tanggal {
-  margin-bottom: 20px;
-}
-.content-waktu .tanggal label {
-  font-size: 25px;
-  color: white;
-}
-.content-waktu .tanggal input {
-  font-size: 25px;
-  width: 40vw;
-  text-align: center;
-  border-radius: 10px;
-}
-.content-waktu .jam label {
-  font-size: 25px;
-  color: white;
-}
-.content-waktu .jam input {
-  font-size: 25px;
-  width: 40vw;
-  text-align: center;
-  border-radius: 10px;
-}
-
-/*-------------------------------------------------*/
-.layanan {
-  justify-content: center;
-  align-items: center;
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-}
-.layanan .judul {
-  display: flex;
+  background-color: rgba(0, 0, 0, 0.5);
   justify-content: center;
   align-items: center;
-  font-size: 2.5vw;
-  color: white;
+  display: none;
 }
-.wrapper-layanan-pilihan {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+.popup {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  width: 400px;
+  height: 420px;
+  max-width: 400px;
+  overflow: hidden;
 }
-.layanan-pilihan {
-  margin-top: 15px;
-  width: 50em;
-  margin-left: 10px;
-  height: 35vh;
-  display: flex;
-  justify-content: space-between;
-  gap: 50px;
-}
-.layanan-pilihan .card {
-  width: 100%;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #382115;
-}
-.layanan-pilihan .card h4 {
-  width: 100%;
+
+.edit{
   text-align: center;
-  font-size: 1.4vw;
-  color: white;
-  border-radius: 10px;
-  margin-top: 2px;
-  margin-bottom: -10px;
 }
 
-.layanan-pilihan .card label {
-  font-size: 1.5vw;
-  color: white;
-  background-color: rgba(131, 131, 131, 0.5);
-  border-radius: 5px;
-
-}
-.layanan-pilihan .card select {
-  border-radius: 10px;
-  height: 2vw;
+.input-form input {
   width: 100%;
-  font-size: 1vw;
+  outline: none;
+  border: none;
 }
 
-#card-spa{
-  background-image: url("../images/gambarSpa.jpg");
-  background-size:100%;
-  background-repeat: no-repeat;
-  background-position: center;
+.form p{
+  margin: 0;
+  padding: 10px 4px 8px 4px;
+  text-align: left;
 }
-#card-bodyMassage{
-  background-image: url("../images/gambarBodyMassage.jpg");
-  background-size: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-#card-refleksi{
-  background-image: url("../images/gambarRefleksi.jpg");
-  background-size: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.layanan-pilihan .card .submit {
-  background-color: #543321;
-  width: 40%;
-  height: 12%;
+.form .input-form{
+  background: #ededed;
+  height: 40px;
+  display: flex;
+  align-items: center;
   border-radius: 10px;
-  margin-bottom: 10px;
-  font-size: 1vw;
-  font-weight: 600;
-  color: white;
+  padding: 0 0 0 10px;
 }
 
-.layanan-pilihan .card .submit:hover {
+.form .input-form input{
+  height: 100%;
+  background: none;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+.form .input-form i{
+  padding: 2px 10px 2px 2px;
+}
+
+.footer-modal{
+  display: flex;
+  justify-content: space-between;
+}
+
+.form .btn-edit{
+  border: none;
+  margin: 24px 0 0 0;
+  height: 40px;
+  width: 48%;
+  background-color: #543321;  
+  color: #fff;
+  font-size: medium;
+  border-radius: 10px;
   cursor: pointer;
-  background-color: brown;
+  transition: all 0.2s ease;
+}
+
+.form .btn-edit:hover{
+  background-color: #3b2418;
+}
+
+.form .btn-batal{
+  border: none;
+  margin: 24px 0 0 0;
+  height: 40px;
+  width: 48%;
+  background-color: lightgray;  
+  color: black;
+  font-size: medium;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.form .btn-batal:hover{
+  background-color: rgb(170, 170, 170);
 }

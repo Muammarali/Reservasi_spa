@@ -36,6 +36,12 @@
                                 <input type="text" name="namaOil" placeholder="Masukkan nama oil" required>
                             </div>
 
+                            <p>Oil</p>
+                            <div class="input-form">
+                                <i class="fa-solid fa-droplet" style="color: #000000;"></i>
+                                <input type="text" name="hargaOil" placeholder="Masukkan harga oil" required>
+                            </div>
+
                             <div class="footer-modal">
                                 <button class="btn-edit">Simpan</button>
                                 <button type="button" class="btn-batal close" data-target="#tambahOil" >Batal</button>
@@ -54,6 +60,7 @@
                 <tr>
                     <th>No</th>
                     <th>Nama</th>
+                    <th>Harga</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -64,25 +71,32 @@
                     <tr>
                         <td><%= i %></td>
                         <td><%= row.oil %></td>
+                        <td><%= row.harga %></td>
                         <td>
-                            <a class="btnEdit" data-target="#bukaModal<%= row.id_layanan %>"><i class="fa-regular fa-pen-to-square fa-lg" style="color: #000000;"></i></a>
-                            <div class="overlay" id="#bukaModal<%= row.id_layanan %>">
+                            <a class="btnEdit" data-target="#bukaModal<%= row.id_bm %>"><i class="fa-regular fa-pen-to-square fa-lg" style="color: #000000;"></i></a>
+                            <div class="overlay" id="#bukaModal<%= row.id_bm %>">
                                 <div class="popup">
                                     <div>
                                         <div class="edit modal-header">
                                             <p>Edit Data Oil</p>
                                         </div>
                                         <div class="form">
-                                            <form method="post" action="/editOil/<%= row.id_layanan %>">
+                                            <form method="post" action="/editOil/<%= row.id_bm %>">
                                                 <p>Oil</p>
                                                 <div class="input-form">
                                                     <i class="fa-solid fa-droplet" style="color: #000000;"></i>
                                                     <input type="text" name="oil" value="<%= row.oil %>" required>
                                                 </div>
+
+                                                <p>Harga</p>
+                                                <div class="input-form">
+                                                    <i class="fa-solid fa-droplet" style="color: #000000;"></i>
+                                                    <input type="text" name="harga" value="<%= row.harga %>" required>
+                                                </div>
                                 
                                                 <div class="footer-modal">
                                                     <button class="btn-edit">Simpan</button>
-                                                    <button type="button" class="btn-batal close" data-target="#bukaModal<%= row.id_layanan %>">Batal</button>
+                                                    <button type="button" class="btn-batal close" data-target="#bukaModal<%= row.id_bm %>">Batal</button>
                                                 </div>
                                             </form>
                                         </div>
