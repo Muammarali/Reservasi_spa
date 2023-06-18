@@ -44,6 +44,7 @@ body {
 .container .filter-kota {
     display: flex;
     margin: 0 0 20px 4px;
+    color: white;
 }
 
 .container .filter-kota p {
@@ -51,8 +52,8 @@ body {
     color: #fff;
 }
 
-.container .filter-kota i {
-    padding: 18px 4px 0 0;
+.container .filter-kota i{
+    padding: 16px 6px 0 0;
 }
 
 .container .filter-kota #dropdownKota {
@@ -85,11 +86,12 @@ body {
     border-collapse: collapse;
     text-align: left;
     overflow: hidden;
-    box-shadow: 0 5px 10px gray;
+    box-shadow: 0 5px 10px black;
     background-color: white;
     border-radius: 8px;
     max-width: 1080px;
-    min-width: 20%;
+    min-width: 1080px;
+    min-height: 99px;
 }
 
 .container table thead {
@@ -108,8 +110,8 @@ body {
     padding: 1rem 2rem;
 }
 
-.container table tbody tr td:last-child {
-    text-align: center;
+.container table tbody tr td:last-child{
+    text-align: left;
 }
 
 .container table tr:nth-child(even) {

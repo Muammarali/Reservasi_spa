@@ -21,7 +21,8 @@ const storage = multer.diskStorage({
     cb(null, file.fieldname + '-' + uniqueSuffix + '.jpg');
   }
 });
-const upload = multer({ storage: storage })
+
+const upload = multer({ storage: storage });
 
 const PORT = 8080;
 const app = express();
@@ -355,7 +356,6 @@ const tambahDataScrub = (conn, nama_scrub, harga) => {
     });
   });
 };
-
 const tambahDataOil = (conn, oil, harga) => {
   return new Promise((resolve, reject) => {
     conn.query(`INSERT INTO body_massage (oil, harga) VALUES ('${oil}', '${harga}')`, (err, result) => {
@@ -367,6 +367,30 @@ const tambahDataOil = (conn, oil, harga) => {
     });
   });
 }
+
+const getLaporan = conn => {
+  return new Promise((resolve, reject) => {
+      conn.query(`SELECT * FROM reservasi`, (err, result) => {
+          if(err){
+              reject(err);
+          } else{
+              resolve(result);
+          }
+      });
+  });
+};
+
+const getHistoriRes = (conn, username) => {
+  return new Promise((resolve, reject) => {
+      conn.query(`SELECT * FROM reservasi JOIN cabang ON cabang.no_cabang = reservasi.no_cabang JOIN layanan ON layanan.id_layanan = reservasi.id_layanan WHERE reservasi.username = '${username}'`, (err, result) => {
+          if(err){
+              reject(err);
+          } else{
+              resolve(result);
+          }
+      });
+  });
+};
 
 app.get("/", async (req, res) => {
   let data = "";
@@ -475,26 +499,86 @@ app.get('/spaScrub', isAuthAdmin, async (req, res) => {
 app.get('/laporan', isAuthAdmin, async (req, res) => {
   const conn = await dbConnect();
   let dataSession = req.session.data;
+  const dataLaporan = await getLaporan(conn);
+  const dataCabang = await getDataCabang(conn);
+
+  let dateObj = {
+    januari: 0,
+    februari: 0,
+    maret: 0,
+    april: 0,
+    mei: 0,
+    juni: 0,
+    juli: 0,
+    agustus: 0,
+    september: 0,
+    oktober: 0,
+    november: 0,
+    desember: 0
+  };
+  
+  let i = 0;
+  for (let row of dataLaporan){
+    let tanggal = dataLaporan[i].tanggal;
+    let month = new Date(tanggal).getMonth() + 1;
+
+    if (month == 1){
+      dateObj.januari++;
+    } else if (month == 2){
+      dateObj.februari++;
+    } else if (month == 3){
+      dateObj.maret++;
+    } else if (month == 4){
+      dateObj.april++;
+    } else if (month == 5){
+      dateObj.mei++;
+    } else if (month == 6){
+      dateObj.juni++;
+    } else if (month == 7){
+      dateObj.juli++;
+    } else if (month == 8){
+      dateObj.agustus++;
+    } else if (month == 9){
+      dateObj.september++;
+    } else if (month == 10){
+      dateObj.oktober++;
+    } else if (month == 11){
+      dateObj.november++;
+    } else if (month == 12){
+      dateObj.desember++;
+    }
+    // console.log(month)
+    // console.log(dateObj)
+    i++;
+  }
+
   conn.release();
-  res.render('laporan', { dataSession })
+  res.render('laporan', {dataSession, dateObj, dataCabang})
 });
 
 app.get("/cabang", isAuthMember, async (req, res) => {
   const conn = await dbConnect();
   let dataSession = req.session.data;
+  conn.release();
   res.render("cabang", { dataSession });
 });
 
 app.get("/reservasi", isAuthMember, async (req, res) => {
   const conn = await dbConnect();
   let dataSession = req.session.data;
+  conn.release();
   res.render("reservasi", { dataSession });
 });
 
 app.get("/historiReservasi", isAuthMember, async (req, res) => {
   const conn = await dbConnect();
   let dataSession = req.session.data;
-  res.render("historiReservasi", { dataSession });
+  let username = req.session.username;
+  console.log(username)
+  let dataHistori = await getHistoriRes(conn, username);
+  console.log(dataHistori)
+  conn.release();
+  res.render("historiReservasi", { dataSession, dataHistori });
 });
 
 app.get('/logout', async (req, res) => {
@@ -535,6 +619,7 @@ app.post('/login', async (req, res) => {
       res.redirect('/homeAdmin');
     } else if (dataMember.length > 0) {
       req.session.data = dataMember[0].nama;
+      req.session.username = dataMember[0].username;
       // console.log(dataMember[0].status)
 
       // console.log(req.session.data);
@@ -626,12 +711,12 @@ app.post('/tambah/:data', async (req, res) => {
   res.redirect('/memberBaru')
 });
 
-app.get('/tolak/:data', async (req, res) => {
-  const conn = await dbConnect();
-  const { data } = req.params
-  const updateData = await tolakMember(conn, data)
-  conn.release();
-  res.redirect('/memberBaru')
+app.post('/tolak/:data', async (req, res) => {
+    const conn = await dbConnect();
+    const {data} = req.params
+    const updateData = await tolakMember(conn, data)
+    conn.release();
+    res.redirect('/memberBaru')
 });
 
 app.post('/editOil/:data', async (req, res) => {

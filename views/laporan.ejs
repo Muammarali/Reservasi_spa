@@ -7,15 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Member</title>
     <link rel="icon" href="images/logo-web.png">
-    <link rel="stylesheet" href="css/spa_page.css">
+    <link rel="stylesheet" href="css/laporan.css">
     <script src="https://kit.fontawesome.com/985f81e0fc.js" crossorigin="anonymous"></script>
-    <!-- <script src="js/bodyMassage.js" defer></script> -->
-    <script src="js/spa.js" defer></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
-        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous"></script>
+    <script type="module" src="js/laporan.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
 </head>
 
 <body>
@@ -26,4 +23,104 @@
     <div class="profile">
         <%- include('profile') %>
     </div>
+
+    <div class="container">
+
+        <div class="head">
+            <div class="filterDate">
+                <select name="dropdownCabang" id="dropdownCabang">
+                    <option selected>Semua</option>
+                    <% for(let row of dataCabang){ %>
+                        <option value="<%= row.nama %>">
+                            <%= row.nama %>
+                        </option>
+                    <% }%>
+                </select>
+            </div>
+
+            <div class="download-pdf">
+                <button id="download"><i class="fa-solid fa-file-pdf" style="color: #ffffff; padding-right: 8px;"></i>Download PDF</button>
+            </div>
+        </div>
+
+        <div class="grafik">
+            <div class="title">
+                <p>Periode : 1 Januari 2023 s/d 31 Desember 2023
+                    <br>
+                    Cabang : Semua
+                </p>
+            </div>
+            <canvas id="myChart"></canvas>
+          </div>
+    </div>
+
+    <script>
+        const temp = '<%- JSON.stringify(dateObj) %>';
+        const row = JSON.parse(temp);
+        const ctx = document.getElementById('myChart');
+        const btnDownload = document.querySelector('#download');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September',
+                    'Oktober', 'November', 'Desember'],
+                datasets: [{
+                    axis: 'x',
+                    label: 'Total transaksi per bulan',
+                    data: [row.januari, row.februari, row.maret, row.april, row.mei, row.juni, row.juli, row.agustus, row.september, row.oktober, row.november, row.desember],
+                    borderWidth: 1,
+                    backgroundColor: '#543321'
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        ticks: {
+                            color: 'black',
+                            font: {
+                                size: 18,
+                            },
+                            stepSize: 1,
+                            beginAtZero: true
+                        },
+                        suggestedMin: 0,
+                        grid: {
+                            drawOnChartArea: false
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: 'black',
+                            font: {
+                                size: 14
+                            },
+                            stepSize: 1,
+                            beginAtZero: true
+                        },
+                        grid: {
+                            drawOnChartArea: false
+                        }
+                    }
+                }
+            }
+        });
+        
+        btnDownload.addEventListener('click', () => {
+            let element = document.querySelector('.grafik');
+            let date = Date.now();
+            let today = new Date(date);
+
+            let opt = {
+                margin: [14, 14],
+                filename: 'laporan-' + today.toLocaleDateString() + '.pdf',
+                image: { type: 'png', quality: 1 },
+                html2canvas: { dpi: 400, letterRendering: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+            };
+
+            html2pdf().set(opt).from(element).save();
+        });
+    </script>
+
 </body>

@@ -84,11 +84,45 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            <a class="btnEdit" data-target="#reject<%= row.username %>"><i class="fa-solid fa-circle-xmark fa-xl" style="color: red;"></i></a>
+                            <div class="overlay" id="#reject<%= row.username %>">
+                                <div class="popup">
+                                    <div>
+                                        <div class="edit modal-header">
+                                            <p>Apakah Anda akan menolak member ini?</p>
+                                        </div>
+                                        <div class="form">
+                                            <form method="post" action="/tolak/<%= row.username %>">
+                                                <div class="data-box">
+                                                    <div class="data-form">
+                                                        <p>Nama :</p>
+                                                        <p><%= row.nama %></p>
+                                                    </div>
+    
+                                                    <div class="data-form">
+                                                        <p>Username :</p>
+                                                        <p><%= row.username %></p>
+                                                    </div>
+                                                    <div class="data-form">
+                                                        <p>Nomor HP :</p>
+                                                        <p><%= row.no_hp %></p>
+                                                    </div>
+                                                    <div class="data-form">
+                                                        <p>Alamat :</p>
+                                                        <p><%= row.alamat %></p>
+                                                    </div>
+                                                </div>
+                                                <div class="footer-modal">
+                                                    <button class="btn-edit">Tolak</button>
+                                                    <button type="button" class="btn-batal close" data-target="#reject<%= row.username %>">Batal</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
-                            <a href="/tolak/<%= row.username %>" class="btnReject" data-target="#reject<%= row.username %>"><i class="fa-solid fa-circle-xmark fa-xl" style="color: red;"></i></a>
-                            
-                            
                         </td>
                     </tr>
                     <% i++ %>

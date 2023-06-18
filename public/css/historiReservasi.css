@@ -1,0 +1,218 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: rgba(0, 0, 0, 0.2);
+  background-blend-mode: darken;
+  background-image: url('../images/bg-home.jpg');
+}
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  color: black;
+  margin-left: 222px;
+  margin-bottom: 100px;
+}
+
+.container .logo{
+  background-image: url('../images/BaliHalus-putih.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 100%;
+  height: 80px;
+  margin-left: 650px;
+}
+
+.container table{
+  border-collapse: collapse;
+  text-align: left;
+  overflow: hidden;
+  margin-top: 240px;
+  box-shadow: 0 5px 10px rgb(0, 0, 0);
+  background-color: white;
+  border-radius: 8px;
+  max-width: 1080px;
+  min-width: 1080px;
+  min-height: 99px;
+}
+
+.container table thead{
+  box-shadow: 0 5px 15px grey;
+  background-color: #543321;
+  color: white;
+}
+
+.container table thead th{
+  padding: 15px 31px;
+  font-weight: 500;
+  
+}
+
+.container table thead tr th:first-child{
+  max-width: 60px;
+}
+
+.container table thead tr th:nth-child(3){
+  max-width: 80px;
+}
+
+.container table tr td{
+  padding: 1rem 2rem;
+}
+
+.container table tbody tr td:last-child{
+  text-align: left;
+}
+
+.container table tr:nth-child(even){
+  background-color: rgb(245, 245, 245);
+}
+
+.container table tbody tr td a i{
+  cursor: pointer;
+}
+
+.container table tbody tr td span{
+  float: right;
+  cursor: pointer;
+}
+
+.pagination{
+  margin: 20px 0 0 0;
+  border-radius: 20px;
+  background-color: white;
+  width: auto;
+  height: auto;
+}
+
+.pagination a{
+  text-decoration: none;
+  margin: 0 10px 0 10px;
+}
+
+.title {
+  font-size: 22px;
+  margin-top: 30px;
+  margin-left: 30px;
+  width: 1000px;
+  text-align: center;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #f2f2f2;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.popup {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  width: 400px;
+  height: 420px;
+  max-width: 400px;
+  overflow: hidden;
+}
+
+.edit{
+  text-align: center;
+}
+
+.input-form input {
+  width: 100%;
+  outline: none;
+  border: none;
+}
+
+.form p{
+  margin: 0;
+  padding: 10px 4px 8px 4px;
+  text-align: left;
+}
+.form .input-form{
+  background: #ededed;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  padding: 0 0 0 10px;
+}
+
+.form .input-form input{
+  height: 100%;
+  background: none;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+.form .input-form i{
+  padding: 2px 10px 2px 2px;
+}
+
+.footer-modal{
+  display: flex;
+  justify-content: space-between;
+}
+
+.form .btn-edit{
+  border: none;
+  margin: 24px 0 0 0;
+  height: 40px;
+  width: 48%;
+  background-color: #543321;  
+  color: #fff;
+  font-size: medium;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.form .btn-edit:hover{
+  background-color: #3b2418;
+}
+
+.form .btn-batal{
+  border: none;
+  margin: 24px 0 0 0;
+  height: 40px;
+  width: 48%;
+  background-color: lightgray;  
+  color: black;
+  font-size: medium;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.form .btn-batal:hover{
+  background-color: rgb(170, 170, 170);
+}
