@@ -20,12 +20,14 @@ const staticPath = path.resolve("public");
 app.use(express.static(staticPath));
 app.use(express.urlencoded({ extended: true }));
 
-app.use(session({
-    secret: 'mysecretkey',
+app.use(
+  session({
+    secret: "mysecretkey",
     resave: false,
     saveUninitialized: false,
-    cookie: {secure: false}
-}));
+    cookie: { secure: false },
+  })
+);
 
 const dbConnect = () => {
   return new Promise((resolve, reject) => {
@@ -70,27 +72,30 @@ const getCheckMember = (conn, username, hashed_pass) => {
 };
 
 const postDaftar = (conn, nama, username, hashed_pass, no_hp, alamat) => {
-    return new Promise((resolve, reject) => {
-        conn.query(`INSERT INTO member (nama, username, password, no_hp, alamat) VALUES ('${nama}', '${username}', '${hashed_pass}', '${no_hp}', '${alamat}')`, (err, result) => {
-            if(err){
-                reject(err);
-            } else{
-                resolve(result);
-            }
-        });
-    });
+  return new Promise((resolve, reject) => {
+    conn.query(
+      `INSERT INTO member (nama, username, password, no_hp, alamat) VALUES ('${nama}', '${username}', '${hashed_pass}', '${no_hp}', '${alamat}')`,
+      (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
 };
 
-const getDataMemberBaru = conn => {
-    return new Promise((resolve, reject) => {
-        conn.query(`SELECT * FROM member WHERE status = 0`, (err, result) => {
-            if(err){
-                reject(err);
-            } else{
-                resolve(result);
-            }
-        });
+const getDataMemberBaru = (conn) => {
+  return new Promise((resolve, reject) => {
+    conn.query(`SELECT * FROM member WHERE status = 0`, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
     });
+  });
 };
 
 const getDataEdit = (conn, username) => {
@@ -139,87 +144,105 @@ const updateDataMember = (conn, data, nama, username, no_hp, alamat) => {
 };
 
 const updateStatusMember = (conn, data) => {
-    return new Promise((resolve, reject) => {
-        conn.query(`UPDATE member SET status = '1' WHERE username = '${data}'`, (err, result) => {
-            if(err){
-                reject(err);
-            } else{
-                resolve(result);
-            }
-        });
-    });
+  return new Promise((resolve, reject) => {
+    conn.query(
+      `UPDATE member SET status = '1' WHERE username = '${data}'`,
+      (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
 };
 
 const tolakMember = (conn, data) => {
-    return new Promise((resolve, reject) => {
-        conn.query(`DELETE FROM member WHERE username = '${data}'`, (err, result) => {
-            if(err){
-                reject(err);
-            } else{
-                resolve(result);
-            }
-        });
-    });
+  return new Promise((resolve, reject) => {
+    conn.query(
+      `DELETE FROM member WHERE username = '${data}'`,
+      (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
 };
 
-const getDataBodyM = conn => {
-    return new Promise((resolve, reject) => {
-        conn.query(`SELECT id_layanan, oil FROM layanan WHERE oil IS NOT NULL`, (err, result) => {
-            if(err){
-                reject(err);
-            } else{
-                resolve(result);
-            }
-        });
-    });
+const getDataBodyM = (conn) => {
+  return new Promise((resolve, reject) => {
+    conn.query(
+      `SELECT id_layanan, oil FROM layanan WHERE oil IS NOT NULL`,
+      (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
 };
 
-const updateDataBodyM= (conn, data, oil) => {
-    return new Promise((resolve, reject) => {
-        conn.query(`UPDATE layanan SET oil = '${oil}' WHERE id_layanan = '${data}'`, (err, result) => {
-            if(err){
-                reject(err);
-            } else{
-                resolve(result);
-            }
-        });
-    });
+const updateDataBodyM = (conn, data, oil) => {
+  return new Promise((resolve, reject) => {
+    conn.query(
+      `UPDATE layanan SET oil = '${oil}' WHERE id_layanan = '${data}'`,
+      (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
 };
 
 const getDataCabang = (conn) => {
-    return new Promise((resolve, reject) => {
-        conn.query(`SELECT * FROM cabang JOIN kota ON kota.id_kota = cabang.id_kota`, (err, result) => {
-            if(err){
-                reject(err);
-            } else{
-                resolve(result);
-            }
-        });
-    });
+  return new Promise((resolve, reject) => {
+    conn.query(
+      `SELECT * FROM cabang JOIN kota ON kota.id_kota = cabang.id_kota`,
+      (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
 };
 
 const getDataCabangEdit = (conn, data) => {
-    return new Promise((resolve, reject) => {
-        conn.query(`UPDATE layanan SET oil = '${oil}' WHERE id_layanan = '${data}'`, (err, result) => {
-            if(err){
-                reject(err);
-            } else{
-                resolve(result);
-            }
-        });
-    });
+  return new Promise((resolve, reject) => {
+    conn.query(
+      `UPDATE layanan SET oil = '${oil}' WHERE id_layanan = '${data}'`,
+      (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
 };
 
 const getDataKota = (conn) => {
-    return new Promise((resolve, reject) => {
-        conn.query(`SELECT nama_kota FROM kota`, (err, result) => {
-            if(err){
-                reject(err);
-            } else{
-                resolve(result);
-            }
-        });
+  return new Promise((resolve, reject) => {
+    conn.query(`SELECT nama_kota FROM kota`, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
     });
+  });
 };
 
 const isAuthMember = (req, res, next) => {
@@ -271,19 +294,18 @@ app.get("/homeMember", isAuthMember, async (req, res) => {
   res.render("homeMember", { dataSession });
 });
 
-app.get('/dataMember', isAuthAdmin, async (req, res) => {
-    const conn = await dbConnect();
-    let dataSession = req.session.data;
-    let dataMember = await getDataMember(conn);
-    res.render('dataMember', {dataSession, dataMember})
+app.get("/dataMember", isAuthAdmin, async (req, res) => {
+  const conn = await dbConnect();
+  let dataSession = req.session.data;
+  let dataMember = await getDataMember(conn);
+  res.render("dataMember", { dataSession, dataMember });
 });
 
-app.get('/edit/:data', async (req, res) => {
-    const conn = await dbConnect();
-    let dataSession = req.session.data
-    let dataMember = await getDataMember(conn);
-    res.render('dataMember', {dataSession, dataMember})
-
+app.get("/edit/:data", async (req, res) => {
+  const conn = await dbConnect();
+  let dataSession = req.session.data;
+  let dataMember = await getDataMember(conn);
+  res.render("dataMember", { dataSession, dataMember });
 });
 
 app.get("/logout", async (req, res) => {
@@ -305,53 +327,54 @@ app.get("/reservasi", isAuthMember, async (req, res) => {
   res.render("reservasi", { dataSession });
 });
 
-
 app.get("/historiReservasi", isAuthMember, async (req, res) => {
   const conn = await dbConnect();
   let dataSession = req.session.data;
   res.render("historiReservasi", { dataSession });
 });
 
-app.get('/kelolaCabang', isAuthAdmin, async (req, res) => {
-    const conn = await dbConnect();
-    let { selected } = req.body;
-    console.log(selected)
-    let dataSession = req.session.data;
-    const dataCabang = await getDataCabang(conn);
-    const dataKota = await getDataKota(conn);
-    conn.release();
-    res.render('kelolaCabang', {dataSession, dataCabang, dataKota})
+app.get("/kelolaCabang", isAuthAdmin, async (req, res) => {
+  const conn = await dbConnect();
+  let { selected } = req.body;
+  console.log(selected);
+  let dataSession = req.session.data;
+  const dataCabang = await getDataCabang(conn);
+  const dataKota = await getDataKota(conn);
+  conn.release();
+  res.render("kelolaCabang", { dataSession, dataCabang, dataKota });
 });
 
 //POST METHOD
 
-app.post('/login', async (req, res) => {
-    const conn = await dbConnect();
-    const { username, password } = req.body;
-    const hashed_pass = crypto.createHash('sha256').update(password).digest('base64');
-    let data = "";
-    // console.log(hashed_pass);
-    if (username.length > 0 && password.length > 0){
-        const dataAdmin = await getCheckAdmin(conn, username, hashed_pass);
-        const dataMember = await getCheckMember(conn, username, hashed_pass);
+app.post("/login", async (req, res) => {
+  const conn = await dbConnect();
+  const { username, password } = req.body;
+  const hashed_pass = crypto
+    .createHash("sha256")
+    .update(password)
+    .digest("base64");
+  let data = "";
+  // console.log(hashed_pass);
+  if (username.length > 0 && password.length > 0) {
+    const dataAdmin = await getCheckAdmin(conn, username, hashed_pass);
+    const dataMember = await getCheckMember(conn, username, hashed_pass);
 
-        if (dataAdmin.length > 0){
-            req.session.data = dataAdmin[0].nama;
-            req.session.isAuthAdmin = true;
-            // console.log(req.session.data);
-            res.redirect('/homeAdmin');
-        } else if (dataMember.length > 0){
-            req.session.data = dataMember[0].nama;
-            req.session.isAuthMember = true;
-            // console.log(req.session.data);
-            res.redirect('/homeMember');
-        } else{
-            data = "Username atau Password salah!";
-            res.render('login', {data});
-        }
-        
+    if (dataAdmin.length > 0) {
+      req.session.data = dataAdmin[0].nama;
+      req.session.isAuthAdmin = true;
+      // console.log(req.session.data);
+      res.redirect("/homeAdmin");
+    } else if (dataMember.length > 0) {
+      req.session.data = dataMember[0].nama;
+      req.session.isAuthMember = true;
+      // console.log(req.session.data);
+      res.redirect("/homeMember");
+    } else {
+      data = "Username atau Password salah!";
+      res.render("login", { data });
     }
-    conn.release();
+  }
+  conn.release();
 });
 
 app.post("/daftar", async (req, res) => {
@@ -373,22 +396,35 @@ app.post("/daftar", async (req, res) => {
     status = false;
   }
 
-    if (nama != undefined && username != undefined && status == true && nomorhp != undefined && alamat != undefined){
-        // console.log(checkDataExist.length)
-        if (checkDataExist.length == 0){
-            console.log("Ter INSERT data nya")
-            const insert = await postDaftar(conn, nama, username, hashed_pass, nomorhp, alamat);
-            res.render('login', {data})
-        } else{
-            isExist = "Username sudah digunakan, silakan ganti!"
-            res.render('daftar', {isExist})
-        }
-    } else{
-        isExist = "Data yang Anda masukkan tidak valid!"
-        res.render('daftar', {isExist})
+  if (
+    nama != undefined &&
+    username != undefined &&
+    status == true &&
+    nomorhp != undefined &&
+    alamat != undefined
+  ) {
+    // console.log(checkDataExist.length)
+    if (checkDataExist.length == 0) {
+      console.log("Ter INSERT data nya");
+      const insert = await postDaftar(
+        conn,
+        nama,
+        username,
+        hashed_pass,
+        nomorhp,
+        alamat
+      );
+      res.render("login", { data });
+    } else {
+      isExist = "Username sudah digunakan, silakan ganti!";
+      res.render("daftar", { isExist });
     }
-    
-    conn.release();
+  } else {
+    isExist = "Data yang Anda masukkan tidak valid!";
+    res.render("daftar", { isExist });
+  }
+
+  conn.release();
 });
 
 app.post("/edit/:data", async (req, res) => {
@@ -418,34 +454,34 @@ app.post("/edit/:data", async (req, res) => {
   res.redirect("/dataMember");
 });
 
-app.post('/tambah/:data', async (req, res) => {
-    const conn = await dbConnect();
-    const {data} = req.params
-    const updateData = await updateStatusMember(conn, data)
-    conn.release();
-    res.redirect('/memberBaru')
+app.post("/tambah/:data", async (req, res) => {
+  const conn = await dbConnect();
+  const { data } = req.params;
+  const updateData = await updateStatusMember(conn, data);
+  conn.release();
+  res.redirect("/memberBaru");
 });
 
-app.post('/tolak/:data', async (req, res) => {
-    const conn = await dbConnect();
-    const {data} = req.params
-    const updateData = await tolakMember(conn, data)
-    conn.release();
-    res.redirect('/memberBaru')
+app.post("/tolak/:data", async (req, res) => {
+  const conn = await dbConnect();
+  const { data } = req.params;
+  const updateData = await tolakMember(conn, data);
+  conn.release();
+  res.redirect("/memberBaru");
 });
 
-app.post('/editOil/:data', async (req, res) => {
-    const conn = await dbConnect();
-    const {data} = req.params
-    const {oil} = req.body
+app.post("/editOil/:data", async (req, res) => {
+  const conn = await dbConnect();
+  const { data } = req.params;
+  const { oil } = req.body;
 
-    // let dataSession = req.session.data
-    // let dataBodyM = await getDataMember(conn);
-    // const dataEdit = await getDataEdit(conn, data)
-    const updateData = await updateDataBodyM(conn, data, oil)
+  // let dataSession = req.session.data
+  // let dataBodyM = await getDataMember(conn);
+  // const dataEdit = await getDataEdit(conn, data)
+  const updateData = await updateDataBodyM(conn, data, oil);
 
-    conn.release();
-    res.redirect('/bodyMassage')
+  conn.release();
+  res.redirect("/bodyMassage");
 });
 
 app.listen(PORT, () => {
