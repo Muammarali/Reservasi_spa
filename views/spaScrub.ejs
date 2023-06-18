@@ -42,6 +42,12 @@
                                 <input type="text" name="namaScrub" placeholder="Masukkan nama scrub" required>
                             </div>
 
+                            <p>Harga</p>
+                            <div class="input-form">
+                                <i class="fa-solid fa-droplet" style="color: #000000;"></i>
+                                <input type="text" name="hargaScrub" placeholder="Masukkan harga scrub" required>
+                            </div>
+
                             <div class="footer-modal">
                                 <button class="btn-edit">Simpan</button>
                                 <button type="button" class="btn-batal close" data-target="#tambahScrub" >Batal</button>
@@ -60,6 +66,7 @@
                 <tr>
                     <th>No</th>
                     <th>Nama</th>
+                    <th>Harga</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -69,26 +76,33 @@
                 <% for(let row of dataSpaScrub) { %>
                     <tr>
                         <td><%= i %></td>
-                        <td><%= row.scrub %></td>
+                        <td><%= row.nama %></td>
+                        <td><%= row.harga %></td>
                         <td>
-                            <a class="btnEdit" data-target="#bukaModal<%= row.id_layanan %>"><i class="fa-regular fa-pen-to-square fa-lg" style="color: #000000;"></i></a>
-                            <div class="overlay" id="#bukaModal<%= row.id_layanan %>">
+                            <a class="btnEdit" data-target="#bukaModal<%= row.id_spaS %>"><i class="fa-regular fa-pen-to-square fa-lg" style="color: #000000;"></i></a>
+                            <div class="overlay" id="#bukaModal<%= row.id_spaS %>">
                                 <div class="popup">
                                     <div>
                                         <div class="edit modal-header">
                                             <p>Edit Data Scrub</p>
                                         </div>
                                         <div class="form">
-                                            <form method="post" action="/editScrub/<%= row.id_layanan %>">
+                                            <form method="post" action="/editScrub/<%= row.id_spaS %>">
                                                 <p>Scrub</p>
                                                 <div class="input-form">
                                                     <i class="fa-solid fa-droplet" style="color: #000000;"></i>
-                                                    <input type="text" name="scrub" value="<%= row.scrub %>" required>
+                                                    <input type="text" name="scrub" value="<%= row.nama %>" required>
                                                 </div>
-                                
+                                                
+                                                <p>Harga</p>
+                                                <div class="input-form">
+                                                    <i class="fa-solid fa-droplet" style="color: #000000;"></i>
+                                                    <input type="text" name="harga" value="<%= row.harga %>" required>
+                                                </div>
+
                                                 <div class="footer-modal">
                                                     <button class="btn-edit">Simpan</button>
-                                                    <button type="button" class="btn-batal close" data-target="#bukaModal<%= row.id_layanan %>">Batal</button>
+                                                    <button type="button" class="btn-batal close" data-target="#bukaModal<%= row.id_spaS %>">Batal</button>
                                                 </div>
                                             </form>
                                         </div>

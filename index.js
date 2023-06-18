@@ -8,7 +8,7 @@ import multer from 'multer';
 const pool = mysql.createPool({
   user: "root",
   password: "",
-  database: "balihalus_db",
+  database: "balihalus_coba",
   host: "localhost",
 });
 
@@ -178,7 +178,7 @@ const tolakMember = (conn, data) => {
 
 const getDataBodyM = conn => {
   return new Promise((resolve, reject) => {
-    conn.query(`SELECT id_layanan, oil FROM layanan WHERE oil IS NOT NULL`, (err, result) => {
+    conn.query(`SELECT * FROM body_massage`, (err, result) => {
       if (err) {
         reject(err);
       } else {
@@ -188,9 +188,9 @@ const getDataBodyM = conn => {
   });
 };
 
-const updateDataBodyM = (conn, data, oil) => {
+const updateDataBodyM = (conn, data, oil, harga) => {
   return new Promise((resolve, reject) => {
-    conn.query(`UPDATE layanan SET oil = '${oil}' WHERE id_layanan = '${data}'`, (err, result) => {
+    conn.query(`UPDATE body_massage SET oil = '${oil}', harga = '${harga}' WHERE id_bm = '${data}'`, (err, result) => {
       if (err) {
         reject(err);
       } else {
@@ -202,7 +202,7 @@ const updateDataBodyM = (conn, data, oil) => {
 
 const getDataSpaMasker = conn => {
   return new Promise((resolve, reject) => {
-    conn.query(`SELECT id_layanan, masker FROM layanan WHERE masker IS NOT NULL`, (err, result) => {
+    conn.query(`SELECT * FROM spa_masker`, (err, result) => {
       if (err) {
         reject(err);
       } else {
@@ -212,9 +212,9 @@ const getDataSpaMasker = conn => {
   });
 };
 
-const updateDataSpaMasker = (conn, data, masker) => {
+const updateDataSpaMasker = (conn, data, nama, harga) => {
   return new Promise((resolve, reject) => {
-    conn.query(`UPDATE layanan SET masker = '${masker}' WHERE id_layanan = '${data}'`, (err, result) => {
+    conn.query(`UPDATE spa_masker SET nama = '${nama}', harga = '${harga}' WHERE id_spaM = '${data}'`, (err, result) => {
       if (err) {
         reject(err);
       } else {
@@ -226,7 +226,7 @@ const updateDataSpaMasker = (conn, data, masker) => {
 
 const getDataSpaScrub = conn => {
   return new Promise((resolve, reject) => {
-    conn.query(`SELECT id_layanan, scrub FROM layanan WHERE scrub IS NOT NULL`, (err, result) => {
+    conn.query(`SELECT * FROM spa_scrub`, (err, result) => {
       if (err) {
         reject(err);
       } else {
@@ -236,9 +236,9 @@ const getDataSpaScrub = conn => {
   });
 };
 
-const updateDataSpaScrub = (conn, data, scrub) => {
+const updateDataSpaScrub = (conn, data, nama, harga) => {
   return new Promise((resolve, reject) => {
-    conn.query(`UPDATE layanan SET scrub = '${scrub}' WHERE id_layanan = '${data}'`, (err, result) => {
+    conn.query(`UPDATE spa_scrub SET nama = '${nama}', harga = '${harga} 'WHERE id_spaS = '${data}'`, (err, result) => {
       if (err) {
         reject(err);
       } else {
@@ -332,9 +332,9 @@ const isAuthAdmin = (req, res, next) => {
   }
 };
 
-const tambahDataMasker = (conn, masker) => {
+const tambahDataMasker = (conn, nama, harga) => {
   return new Promise((resolve, reject) => {
-    conn.query(`INSERT INTO layanan (masker) VALUES ('${masker}')`, (err, result) => {
+    conn.query(`INSERT INTO spa_masker (nama, harga) VALUES ('${nama}', '${harga}')`, (err, result) => {
       if (err) {
         reject(err);
       } else {
@@ -344,9 +344,9 @@ const tambahDataMasker = (conn, masker) => {
   });
 };
 
-const tambahDataScrub = (conn, scrub) => {
+const tambahDataScrub = (conn, nama, harga) => {
   return new Promise((resolve, reject) => {
-    conn.query(`INSERT INTO layanan (scrub) VALUES ('${scrub}')`, (err, result) => {
+    conn.query(`INSERT INTO spa_scrub (nama, harga) VALUES ('${nama}', '${harga}')`, (err, result) => {
       if (err) {
         reject(err);
       } else {
@@ -356,9 +356,9 @@ const tambahDataScrub = (conn, scrub) => {
   });
 };
 
-const tambahDataOil = (conn, oil) => {
+const tambahDataOil = (conn, oil, harga) => {
   return new Promise((resolve, reject) => {
-    conn.query(`INSERT INTO layanan (oil) VALUES ('${oil}')`, (err, result) => {
+    conn.query(`INSERT INTO body_massage (oil, harga) VALUES ('${oil}', '${harga}')`, (err, result) => {
       if (err) {
         reject(err);
       } else {
@@ -637,12 +637,12 @@ app.get('/tolak/:data', async (req, res) => {
 app.post('/editOil/:data', async (req, res) => {
   const conn = await dbConnect();
   const { data } = req.params
-  const { oil } = req.body
+  const { oil, harga } = req.body
 
   // let dataSession = req.session.data
   // let dataBodyM = await getDataMember(conn);
   // const dataEdit = await getDataEdit(conn, data)
-  const updateData = await updateDataBodyM(conn, data, oil)
+  const updateData = await updateDataBodyM(conn, data, oil, harga)
 
   conn.release();
   res.redirect('/bodyMassage')
@@ -651,9 +651,9 @@ app.post('/editOil/:data', async (req, res) => {
 app.post('/editMasker/:data', async (req, res) => {
   const conn = await dbConnect();
   const { data } = req.params
-  const { masker } = req.body
+  const { masker, harga } = req.body
 
-  const updateData = await updateDataSpaMasker(conn, data, masker)
+  const updateData = await updateDataSpaMasker(conn, data, masker, harga)
 
   conn.release();
   res.redirect('/spaMasker')
@@ -662,9 +662,9 @@ app.post('/editMasker/:data', async (req, res) => {
 app.post('/editScrub/:data', async (req, res) => {
   const conn = await dbConnect();
   const { data } = req.params
-  const { scrub } = req.body
+  const { scrub, harga } = req.body
 
-  const updateData = await updateDataSpaScrub(conn, data, scrub)
+  const updateData = await updateDataSpaScrub(conn, data, scrub, harga)
 
   conn.release();
   res.redirect('/spaScrub')
@@ -717,9 +717,9 @@ app.post('/tambahCabang', upload.single('gambarCabang'), async (req, res) => {
 
 app.post('/tambahMasker', async (req, res) => {
   const conn = await dbConnect();
-  const { namaMasker } = req.body
+  const { namaMasker, hargaMasker } = req.body
 
-  await tambahDataMasker(conn, namaMasker);
+  await tambahDataMasker(conn, namaMasker, hargaMasker);
 
   conn.release();
   res.redirect('/spaMasker')
@@ -727,9 +727,9 @@ app.post('/tambahMasker', async (req, res) => {
 
 app.post('/tambahScrub', async (req, res) => {
   const conn = await dbConnect();
-  const { namaScrub } = req.body
+  const { namaScrub, hargaScrub } = req.body
 
-  await tambahDataScrub(conn, namaScrub);
+  await tambahDataScrub(conn, namaScrub, hargaScrub);
 
   conn.release();
   res.redirect('/spaScrub')
@@ -741,9 +741,9 @@ app.listen(PORT, () => {
 
 app.post('/tambahOil', async (req, res) => {
   const conn = await dbConnect();
-  const { namaOil } = req.body
+  const { namaOil, hargaOil } = req.body
 
-  await tambahDataOil(conn, namaOil);
+  await tambahDataOil(conn, namaOil, hargaOil);
 
   conn.release();
   res.redirect('/bodyMassage')

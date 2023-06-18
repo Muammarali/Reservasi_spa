@@ -6,7 +6,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow: auto;
+    overflow-x: hidden;
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -128,7 +129,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     width: 400px;
-    height: 194px;
+    height: 260px;
     max-width: 400px;
     overflow: hidden;
 }
