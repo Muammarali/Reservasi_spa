@@ -22,29 +22,38 @@
 
   <div class="container">
     <table>
-        <thead>
-            <tr>
-                <th>No Reservasi</th>
-                <th>Tanggal</th>
-                <th>Waktu Kedatangan</th>
-                <th>Nama Cabang</th>
-                <th>Layanan</th>
-            </tr>
-        </thead>
-        
-        <tbody>
-            <% for(let row of dataHistori) { %>
-                <tr>
-                    <td><%= row.no_reservasi %></td>
-                    <td><%= row.tanggal.toLocaleDateString() %></td>
-                    <td>Pukul <%= row.waktu_kedatangan %></td>
-                    <td><%= row.nama %></td>
-                    <td><%= row.id_layanan %></td>
-                </tr>
-            <% } %>
-        </tbody>
+      <thead>
+        <tr>
+          <th>No Reservasi</th>
+          <th>Tanggal</th>
+          <th>Waktu Kedatangan</th>
+          <th>Nama Cabang</th>
+          <th>Layanan</th>
+        </tr>
+      </thead>
+  
+      <tbody>
+        <% for(let row of dataHistori) { %>
+          <tr>
+            <td>
+              <%= row.no_reservasi %>
+            </td>
+            <td>
+              <%= row.tanggal.toLocaleDateString() %>
+            </td>
+            <td>Pukul <%= row.waktu_kedatangan %>
+            </td>
+            <td>
+              <%= row.nama %>
+            </td>
+            <td>
+              <%= row.id_layanan %>
+            </td>
+          </tr>
+          <% } %>
+      </tbody>
     </table>
-</div>
+  </div>
 </body>
 
 </html>
