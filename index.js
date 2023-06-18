@@ -367,7 +367,7 @@ const tambahDataOil = (conn, oil, harga) => {
       }
     });
   });
-}
+};
 
 const getLaporan = conn => {
   return new Promise((resolve, reject) => {
@@ -396,6 +396,90 @@ const getHistoriRes = (conn, username) => {
 const getDataPilihCabang = (conn, no_cabang) => {
   return new Promise((resolve, reject) => {
     conn.query(`SELECT * FROM cabang WHERE no_cabang = '${no_cabang}'`, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
+
+const getNoCabang = (conn, nama_cabang) => {
+  return new Promise((resolve, reject) => {
+    conn.query(`SELECT no_cabang FROM cabang WHERE nama = '${nama_cabang}'`, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
+
+const getIDMasker = (conn, nama_masker) => {
+  return new Promise((resolve, reject) => {
+    conn.query(`SELECT id_spaM FROM spa_masker WHERE nama_masker = '${nama_masker}'`, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
+
+const getIDScrub = (conn, nama_scrub) => {
+  return new Promise((resolve, reject) => {
+    conn.query(`SELECT id_spaS FROM spa_scrub WHERE nama_scrub = '${nama_scrub}'`, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
+
+const getIDOil = (conn, oil) => {
+  return new Promise((resolve, reject) => {
+    conn.query(`SELECT id_bm FROM body_massage WHERE oil = '${oil}'`, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
+
+const buatReservasiSpa = (conn, username, no_cabang, tanggal, jam, id_spaM, id_spaS) => {
+  return new Promise((resolve, reject) => {
+    conn.query(`INSERT INTO reservasi (tanggal, waktu_kedatangan, no_cabang, username, id_spaM, id_spaS) VALUES ('${tanggal}', '${jam}', '${no_cabang}', '${username}', '${id_spaM}', '${id_spaS}')`, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
+
+const buatReservasiBody = (conn, username, no_cabang, tanggal, jam, id_bm) => {
+  return new Promise((resolve, reject) => {
+    conn.query(`INSERT INTO reservasi (tanggal, waktu_kedatangan, no_cabang, username, id_bm) VALUES ('${tanggal}', '${jam}', '${no_cabang}', '${username}', '${id_bm}')`, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
+
+const buatReservasiRef = (conn, username, no_cabang, tanggal, jam, id_ref) => {
+  return new Promise((resolve, reject) => {
+    conn.query(`INSERT INTO reservasi (tanggal, waktu_kedatangan, no_cabang, username, id_ref) VALUES ('${tanggal}', '${jam}', '${no_cabang}', '${username}', '${id_ref}')`, (err, result) => {
       if (err) {
         reject(err);
       } else {
@@ -560,8 +644,6 @@ app.get('/laporan', isAuthAdmin, async (req, res) => {
     } else if (month == 12){
       dateObj.desember++;
     }
-    // console.log(month)
-    // console.log(dateObj)
     i++;
   }
 
@@ -587,7 +669,7 @@ app.get("/reservasi", isAuthMember, async (req, res) => {
   const dataMasker = await getDataSpaMasker(conn);
   const dataScrub = await getDataSpaScrub(conn);
   const dataOil = await getDataBodyM(conn);
-  console.log(dataScrub);
+  // console.log(dataScrub);
   conn.release();
   if (no_cabang != undefined){
     res.render("reservasi", { dataSession, dataPilihCabang, dataMasker, dataScrub, dataOil});
@@ -715,12 +797,6 @@ app.post("/edit/:data", async (req, res) => {
   const conn = await dbConnect();
   const { data } = req.params;
   const { username, nama, nomorhp, alamat } = req.body;
-  // console.log(data)
-  // console.log(nama)
-  // console.log(username)
-  // console.log(nomorhp)
-  // console.log(alamat)
-  // console.log(req.session.data)
 
   let dataSession = req.session.data;
   let dataMember = await getDataMember(conn);
@@ -855,10 +931,6 @@ app.post('/tambahScrub', async (req, res) => {
   res.redirect('/spaScrub')
 });
 
-app.listen(PORT, () => {
-  console.log("Ready!");
-});
-
 app.post('/tambahOil', async (req, res) => {
   const conn = await dbConnect();
   const { namaOil, hargaOil } = req.body
@@ -873,16 +945,27 @@ app.post('/buatReservasiSpa/:nama_cabang', async (req, res) => {
   const conn = await dbConnect();
   const { nama_cabang } = req.params;
   const { tanggal, jam, dropdownMasker, dropdownScrub, dropdownOil, refleksi } = req.body
+  const username = req.session.username;
+  let id_ref = refleksi;
 
-  console.log(nama_cabang)
-  console.log(tanggal)
-  console.log(jam)
-  console.log(dropdownMasker)
-  console.log(dropdownScrub)
-  console.log(dropdownOil)
-  console.log(refleksi)
+  const no_cabang = await getNoCabang(conn, nama_cabang);
+  let id_spaM = await getIDMasker(conn, dropdownMasker);
+  let id_spaS = await getIDScrub(conn, dropdownScrub);
+  let id_bm = await getIDOil(conn, dropdownOil);
 
+  if (id_ref != undefined){
+    id_ref = 1;
+    const reservasi1 = await buatReservasiRef(conn, username, no_cabang[0].no_cabang, tanggal, jam, id_ref);
+  } else if (id_spaM.length > 0 && id_spaS.length > 0){
+    const reservasi2 = await buatReservasiSpa(conn, username, no_cabang[0].no_cabang, tanggal, jam, id_spaM[0].id_spaM, id_spaS[0].id_spaS);
+  } else {
+    const reservasi3 = await buatReservasiBody(conn, username, no_cabang[0].no_cabang, tanggal, jam, id_bm[0].id_bm);
+  }
 
   conn.release();
   res.redirect('/reservasi')
+});
+
+app.listen(PORT, () => {
+  console.log("Ready!");
 });
