@@ -76,7 +76,7 @@
                 <% for(let row of dataSpaScrub) { %>
                     <tr>
                         <td><%= i %></td>
-                        <td><%= row.nama %></td>
+                        <td><%= row.nama_scrub %></td>
                         <td><%= row.harga %></td>
                         <td>
                             <a class="btnEdit" data-target="#bukaModal<%= row.id_spaS %>"><i class="fa-regular fa-pen-to-square fa-lg" style="color: #000000;"></i></a>
@@ -91,7 +91,7 @@
                                                 <p>Scrub</p>
                                                 <div class="input-form">
                                                     <i class="fa-solid fa-droplet" style="color: #000000;"></i>
-                                                    <input type="text" name="scrub" value="<%= row.nama %>" required>
+                                                    <input type="text" name="scrub" value="<%= row.nama_scrub %>" required>
                                                 </div>
                                                 
                                                 <p>Harga</p>

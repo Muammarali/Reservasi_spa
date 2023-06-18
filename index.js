@@ -212,9 +212,9 @@ const getDataSpaMasker = conn => {
   });
 };
 
-const updateDataSpaMasker = (conn, data, nama, harga) => {
+const updateDataSpaMasker = (conn, data, nama_masker, harga) => {
   return new Promise((resolve, reject) => {
-    conn.query(`UPDATE spa_masker SET nama = '${nama}', harga = '${harga}' WHERE id_spaM = '${data}'`, (err, result) => {
+    conn.query(`UPDATE spa_masker SET nama_masker = '${nama_masker}', harga = '${harga}' WHERE id_spaM = '${data}'`, (err, result) => {
       if (err) {
         reject(err);
       } else {
@@ -236,9 +236,9 @@ const getDataSpaScrub = conn => {
   });
 };
 
-const updateDataSpaScrub = (conn, data, nama, harga) => {
+const updateDataSpaScrub = (conn, data, nama_scrub, harga) => {
   return new Promise((resolve, reject) => {
-    conn.query(`UPDATE spa_scrub SET nama = '${nama}', harga = '${harga} 'WHERE id_spaS = '${data}'`, (err, result) => {
+    conn.query(`UPDATE spa_scrub SET nama_scrub = '${nama_scrub}', harga = '${harga} 'WHERE id_spaS = '${data}'`, (err, result) => {
       if (err) {
         reject(err);
       } else {
@@ -332,9 +332,9 @@ const isAuthAdmin = (req, res, next) => {
   }
 };
 
-const tambahDataMasker = (conn, nama, harga) => {
+const tambahDataMasker = (conn, nama_masker, harga) => {
   return new Promise((resolve, reject) => {
-    conn.query(`INSERT INTO spa_masker (nama, harga) VALUES ('${nama}', '${harga}')`, (err, result) => {
+    conn.query(`INSERT INTO spa_masker (nama_masker, harga) VALUES ('${nama_masker}', '${harga}')`, (err, result) => {
       if (err) {
         reject(err);
       } else {
@@ -344,9 +344,9 @@ const tambahDataMasker = (conn, nama, harga) => {
   });
 };
 
-const tambahDataScrub = (conn, nama, harga) => {
+const tambahDataScrub = (conn, nama_scrub, harga) => {
   return new Promise((resolve, reject) => {
-    conn.query(`INSERT INTO spa_scrub (nama, harga) VALUES ('${nama}', '${harga}')`, (err, result) => {
+    conn.query(`INSERT INTO spa_scrub (nama_scrub, harga) VALUES ('${nama_scrub}', '${harga}')`, (err, result) => {
       if (err) {
         reject(err);
       } else {
