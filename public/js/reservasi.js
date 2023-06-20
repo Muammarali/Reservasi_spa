@@ -4,8 +4,6 @@ const optionScrub = document.getElementById('dropdownScrub');
 const optionBodyM = document.getElementById('dropdownOil');
 const optionRefleksi = document.getElementById('checkboxRefleksi');
 
-console.log(optionRefleksi);
-
 (function() {
     optionMasker.addEventListener('change', () => {
         if (optionMasker.value.length != 0){
